@@ -3,27 +3,27 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private float _movingSpeed = 150f;
+    private float movingSpeed = 150f;
     [SerializeField]
-    private float _rotationSpeed = 150f;
+    private float rotationSpeed = 150f;
     [SerializeField]
-    private float _rotationLimit = 89f;
+    private float rotationLimit = 89f;
     [SerializeField]
-    private float _orbitRadius = 10f;
+    private float orbitRadius = 10f;
     [SerializeField]
-    public float _zoomSpeed = 3000f;
+    public float zoomSpeed = 3000f;
     [SerializeField]
-    public float _zoomPoint = 500f;
+    public float zoomPoint = 500f;
     [SerializeField]
-    public float _minZoom = -500f;
+    public float minZoom = -500f;
     [SerializeField]
-    public float _maxZoom = 500f;
+    public float maxZoom = 500f;
 
-    private float _positionX;
-    private float _positionZ;
-    private float _rotationX;
-    private float _rotationY;
-    private Vector3 _orbit;
+    private float positionX;
+    private float positionZ;
+    private float rotationX;
+    private float rotationY;
+    private Vector3 orbit;
 
     private void Start()
     {
@@ -43,11 +43,11 @@ public class CameraController : MonoBehaviour
 
     private void MoveCamera()
     {
-        _positionX = Input.GetAxis("Mouse X") * Time.deltaTime;
-        _positionZ = Input.GetAxis("Mouse Y") * Time.deltaTime;
+        positionX = Input.GetAxis("Mouse X") * Time.deltaTime;
+        positionZ = Input.GetAxis("Mouse Y") * Time.deltaTime;
 
         Quaternion yRotation = Quaternion.Euler(0f, transform.GetChild(0).eulerAngles.y, 0f);
-        transform.position += yRotation * new Vector3(_positionX * -_movingSpeed, 0, _positionZ * -_movingSpeed);
+        transform.position += yRotation * new Vector3(positionX * -movingSpeed, 0, positionZ * -movingSpeed);
     }
 
     private void ZoomCamera()
@@ -55,15 +55,15 @@ public class CameraController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit point;
         Physics.Raycast(ray, out point);
-        Vector3 scrolldirection = ray.GetPoint(_zoomPoint);
+        Vector3 scrolldirection = ray.GetPoint(zoomPoint);
 
-        float step = _zoomSpeed * Time.deltaTime;
+        float step = zoomSpeed * Time.deltaTime;
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && scrolldirection.y > _minZoom)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && scrolldirection.y > minZoom)
         { 
             transform.position = Vector3.MoveTowards(transform.position, scrolldirection, Input.GetAxis("Mouse ScrollWheel") * step);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && scrolldirection.y < _maxZoom)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && scrolldirection.y < maxZoom)
         {
             transform.position = Vector3.MoveTowards(transform.position, scrolldirection, Input.GetAxis("Mouse ScrollWheel") * step);
         }
@@ -71,17 +71,17 @@ public class CameraController : MonoBehaviour
 
     private void RotateCamera()
     {
-        _orbit = Quaternion.Euler(-_rotationY, _rotationX, 0) * Vector3.forward * _orbitRadius;
-        _rotationX += Input.GetAxis("Mouse X") * _rotationSpeed * Time.deltaTime;
-        _rotationY = Mathf.Clamp(_rotationY -= Input.GetAxis("Mouse Y") * _rotationSpeed * Time.deltaTime, -_rotationLimit, _rotationLimit);
+        orbit = Quaternion.Euler(-rotationY, rotationX, 0) * Vector3.forward * orbitRadius;
+        rotationX += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+        rotationY = Mathf.Clamp(rotationY -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime, -rotationLimit, rotationLimit);
 
-        transform.GetChild(0).position = transform.position + _orbit;
+        transform.GetChild(0).position = transform.position + orbit;
         transform.GetChild(0).LookAt(transform.position);
     }
     private void SetCameraSeeGround()
     {
-        _rotationY = _rotationLimit;
-        _rotationX += 180;
+        rotationY = rotationLimit;
+        rotationX += 180;
         RotateCamera();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGetVector3ValueList
+public interface IPipeVector3Value
 {
-    public List<Vector3> GetVector3List();
+    public Vector3 GetVector3();
 }

@@ -2,31 +2,31 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ReadFromJson : MonoBehaviour
+public class JsonConverter : MonoBehaviour
 {
     const string filePath = "Assets/Resources/Pipe2.json";
-    private readonly Vector3 _pipeOffset = new Vector3(237066, 40, 455461);
+    private readonly Vector3 pipeOffset = new Vector3(237066, 40, 455461);
     
     [SerializeField]
-    private GameObject _pipePrefab;
+    private GameObject pipePrefab;
     [SerializeField]
-    private GameObject _pipesParent;
+    private GameObject pipesParent;
     [SerializeField]
-    private GameObject _focus;
+    private GameObject focus;
     
-    private IGetVector3Value _getPointFromString;
-    private List<float> _xList = new List<float>();
-    private List<float> _yList = new List<float>();
-    private List<float> _zList = new List<float>();
+    private IPipeVector3Value iPipeVector3Value;
+    private List<float> xList = new List<float>();
+    private List<float> yList = new List<float>();
+    private List<float> zList = new List<float>();
     public List<float> XList
-    { get { return _xList; } }
+    { get { return xList; } }
     public List<float> YList
-    { get { return _yList; } }
+    { get { return yList; } }
     public List<float> ZList
-    { get { return _zList; } }
+    { get { return zList; } }
     void Start()
     {
-        _getPointFromString = new GetPointFromString();
+        iPipeVector3Value = new StringToVector3Converter();
         DrawPipeWithData();
     }
     private void DrawPipeWithData()
@@ -41,19 +41,19 @@ public class ReadFromJson : MonoBehaviour
     }
     private void CreatePipe(PipeData pipeData)
     {
-        ((GetPointFromString)_getPointFromString).SetPoint(pipeData.frNodePoint);
-        Vector3 startPoint = _getPointFromString.GetVector3();
+        ((StringToVector3Converter)iPipeVector3Value).SetPoint(pipeData.frNodePoint);
+        Vector3 startPoint = iPipeVector3Value.GetVector3();
         
-        ((GetPointFromString)_getPointFromString).SetPoint(pipeData.toNodePoint);
-        Vector3 endPoint = _getPointFromString.GetVector3();
+        ((StringToVector3Converter)iPipeVector3Value).SetPoint(pipeData.toNodePoint);
+        Vector3 endPoint = iPipeVector3Value.GetVector3();
 
         Vector3 offset = endPoint - startPoint;
-        Vector3 position = startPoint + offset * 0.5f - _pipeOffset;
+        Vector3 position = startPoint + offset * 0.5f - pipeOffset;
         Vector3 scale = new Vector3(pipeData.pipeDia * 0.001f, offset.magnitude * 0.5f, pipeData.pipeDia * 0.001f);
 
         ColorUtility.TryParseHtmlString($"{pipeData.obstColor}", out Color obstcolor);
 
-        GameObject pipe = Instantiate(_pipePrefab, position, Quaternion.identity, _pipesParent.transform);
+        GameObject pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipesParent.transform);
         pipe.transform.up = offset;
         pipe.transform.localScale = scale;
         pipe.GetComponent<MeshRenderer>().material.color = obstcolor;
