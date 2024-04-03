@@ -1,0 +1,24 @@
+{
+  "pipeline": [
+    {
+      "pipeMaterial": "경질염화비닐관",
+      "pipeYear": "2009-01-01",
+      "toNodePoint": "POINT Z (23.685 90.609 53.469)",
+      "obstColor": "#00A6FF",
+      "pipeDia": 300.0,
+      "frNodePoint": "POINT Z (22.358 74.952 54.31)",
+      "linkId": 26643,
+      "obstName": "2차_배수"
+    },
+    {
+      "pipeMaterial": "유리섬유관",
+      "pipeYear": "2009-01-01",
+      "toNodePoint": "POINT Z (34.859 16.575 58.97)",
+      "obstColor": "#A52A2A",
+      "pipeDia": 9.0,
+      "frNodePoint": "POINT Z (34.859 16.575 59.07)",
+      "linkId": 30492,
+      "obstName": "2차_오수"
+    }
+  ]
+}
