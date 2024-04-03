@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SetCameraPosition : MonoBehaviour
+public class CameraStartingPosition : MonoBehaviour
 {
     [SerializeField]
-    private ReadFromJson _readFromJson;
+    private JsonConverter jsonConverter;
     [SerializeField]
-    private List<Vector3> _vertex;
+    private List<Vector3> vertex;
 
-    private IGetVector3ValueList _getVertex;
+    private IPipeVector3ValueList iPipeVector3ValueList;
 
     private void Start()
     {
-        _getVertex = new GetVertex(_readFromJson.XList, _readFromJson.YList, _readFromJson.ZList);
-        _vertex = _getVertex.GetVector3List();
+        iPipeVector3ValueList = new CornerPipesVector3ListGetter(jsonConverter.XList, jsonConverter.YList, jsonConverter.ZList);
+        vertex = iPipeVector3ValueList.GetVector3List();
 
-        if (_readFromJson.XList != null && _readFromJson.YList != null && _readFromJson.ZList != null) 
-            transform.position = GetClosestCameraPosition(Camera.main, _vertex); // 구한 (0, -minDistance, 0) 위치에 focus 를 위치
+        if (jsonConverter.XList != null && jsonConverter.YList != null && jsonConverter.ZList != null) 
+            transform.position = GetClosestCameraPosition(Camera.main, vertex); // 구한 (0, -minDistance, 0) 위치에 focus 를 위치
     }
 
     private Vector3 GetClosestCameraPosition(Camera cam, List<Vector3> points)

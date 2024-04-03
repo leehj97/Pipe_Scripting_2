@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DetectPipe2 : MonoBehaviour
+public class PipeDetector2 : MonoBehaviour
 {
     [SerializeField]
     private CanvasManager _canvasManager;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetPointFromString : IGetVector3Value
+public class StringToVector3Converter : IPipeVector3Value
 {
     private string _point;
     public void SetPoint(string point) { _point = point; }

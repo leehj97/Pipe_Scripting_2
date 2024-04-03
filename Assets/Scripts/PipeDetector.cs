@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DetectPipe : MonoBehaviour
+public class PipeDetector : MonoBehaviour
 {
     [SerializeField]
-    private CanvasManager _canvasManager;
+    private CanvasManager canvasManager;
     [SerializeField]
-    private float _sphereCastRadius = 0.1f;
+    private float sphereCastRadius = 0.1f;
 
     private void Awake()
     {
-        _canvasManager = GameObject.FindGameObjectWithTag("CanvasManager").GetComponent<CanvasManager>();
+        canvasManager = GameObject.FindGameObjectWithTag("CanvasManager").GetComponent<CanvasManager>();
     }
 
     private void Update()
@@ -29,13 +29,13 @@ public class DetectPipe : MonoBehaviour
             LoadPipe(point.transform);
             return;
         }
-        if (Physics.SphereCast(ray, _sphereCastRadius, out point) && point.transform.gameObject.layer != 6)
+        if (Physics.SphereCast(ray, sphereCastRadius, out point) && point.transform.gameObject.layer != 6)
             LoadPipe(point.transform);
     }
     private void LoadPipe(Transform transform)
     {
         PipeInfo pipeInfo = transform.GetComponent<PipeInfo>();
-        _canvasManager.OpenInfo();
-        _canvasManager.SetInfo(pipeInfo.pipeMaterial, pipeInfo.pipeYear, pipeInfo.linkId, pipeInfo.obstName);
+        canvasManager.OpenInfo();
+        canvasManager.SetInfo(pipeInfo.pipeMaterial, pipeInfo.pipeYear, pipeInfo.linkId, pipeInfo.obstName);
     }
 }
