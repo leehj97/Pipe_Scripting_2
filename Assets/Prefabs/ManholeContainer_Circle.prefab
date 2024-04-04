@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 2933447072118868752}
   - component: {fileID: 2933447072118868753}
   - component: {fileID: 2933447072118868758}
+  - component: {fileID: 7478144554935975223}
+  - component: {fileID: -8795149936594453989}
   m_Layer: 0
   m_Name: ManholeContainer_Circle
-  m_TagString: Untagged
+  m_TagString: Facility
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,8 +27,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2933447072118868759}
-  m_LocalRotation: {x: 0.00000008146034, y: 3.300118e-15, z: 0.00000008742278, w: 1}
-  m_LocalPosition: {x: 0, y: -0.13422605, z: 0.00000032195834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83,3 +85,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7478144554935975223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933447072118868759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48817dfae4feca46a4d62c1326835fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstName: 
+  pointId: 0
+--- !u!136 &-8795149936594453989
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933447072118868759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 1.1
+  m_Direction: 1
+  m_Center: {x: -0.00000008940697, y: -0.49999994, z: 0.000000014901161}

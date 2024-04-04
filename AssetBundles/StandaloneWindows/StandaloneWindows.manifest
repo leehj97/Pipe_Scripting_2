@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 3626280817
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: manholecap_circle_electric
+      Dependencies: {}
+    Info_1:
+      Name: manholecontainer_circle
+      Dependencies: {}

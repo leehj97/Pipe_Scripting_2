@@ -21,6 +21,11 @@ public class CanvasManager : MonoBehaviour
         linkIdText.text = $"관리번호 : {linkId}";
         obstNameText.text = $"관종 : {obstName}";
     }
+    public void SetInfo(string obstName, int pointId)
+    {
+        linkIdText.text = $"ID : {pointId}";
+        obstNameText.text = $"시설물 종류 : {obstName}";
+    }
     public void OpenInfo()
     {
         backGround.SetActive(true);

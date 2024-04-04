@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class JsonConverter : MonoBehaviour
+public class PipeJsonConverter : MonoBehaviour
 {
-    const string filePath = "Assets/Resources/Pipe2.json";
     private readonly Vector3 pipeOffset = new Vector3(237066, 40, 455461);
-    
+    const string PIPE_JSON_PATH = "Assets/Resources/Pipe2.json";
+
     [SerializeField]
     private GameObject pipePrefab;
     [SerializeField]
@@ -31,7 +31,7 @@ public class JsonConverter : MonoBehaviour
     }
     private void DrawPipeWithData()
     {
-        string jsonContent = File.ReadAllText(filePath);
+        string jsonContent = File.ReadAllText(PIPE_JSON_PATH);
         PipeDataList pipeDataList = JsonUtility.FromJson<PipeDataList>(jsonContent);
 
         foreach (PipeData pipe in pipeDataList.pipeline)
