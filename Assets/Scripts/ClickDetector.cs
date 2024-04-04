@@ -3,35 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PipeDetector2 : MonoBehaviour
+public class ClickDetector : MonoBehaviour
 {
     [SerializeField]
-    private CanvasManager _canvasManager;
+    private CanvasManager canvasManager;
     [SerializeField]
-    private float _sphereCastRadius = 0.1f;
+    private float sphereCastRadius = 0.1f;
 
     private void Awake()
     {
-        _canvasManager = GameObject.FindGameObjectWithTag("CanvasManager").GetComponent<CanvasManager>();
+        canvasManager = GameObject.FindGameObjectWithTag("CanvasManager").GetComponent<CanvasManager>();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
-            ClickPipe();
+            ClickFacility();
     }
-    private void ClickPipe()
+    private void ClickFacility()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit point;
         if (Physics.Raycast(ray, out point) && point.transform.gameObject.layer != 6)
         {
-            LoadPipe(point.transform);
+            LoadInfo(point.transform);
             return;
         }
         //if (Physics.SphereCast(ray, _sphereCastRadius, out point) && point.transform.gameObject.layer != 6)
         //    LoadPipe(point.transform);
-        RaycastHit[] hitList = Physics.SphereCastAll(ray, _sphereCastRadius, 100f); // 구 캐스트가 파이프에 닿기 때문에 눈에 보이는 점 대신 애매한 곳에 point가 생성됨
+        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 100f); // 구 캐스트가 파이프에 닿기 때문에 눈에 보이는 점 대신 애매한 곳에 point가 생성됨
                                                                                     // 애매한 점은 화면상 가까운 곳이라는 보장이 없음
         if (hitList.Length > 0)
         {
@@ -69,13 +69,22 @@ public class PipeDetector2 : MonoBehaviour
             }
 
             if (nearestPipe != null)
-                LoadPipe(nearestPipe.transform);
+                LoadInfo(nearestPipe.transform);
         }
     }
-    private void LoadPipe(Transform transform)
+    private void LoadInfo(Transform transform)
     {
-        PipeInfo pipeInfo = transform.GetComponent<PipeInfo>();
-        _canvasManager.OpenInfo();
-        _canvasManager.SetInfo(pipeInfo.pipeMaterial, pipeInfo.pipeYear, pipeInfo.linkId, pipeInfo.obstName);
+        canvasManager.OpenInfo();
+
+        if (transform.CompareTag("Pipe"))
+        {
+            PipeInfo pipeInfo = transform.GetComponent<PipeInfo>();
+            canvasManager.SetInfo(pipeInfo.pipeMaterial, pipeInfo.pipeYear, pipeInfo.linkId, pipeInfo.obstName);
+        }
+        else if (transform.CompareTag("Facility"))
+        {
+            FacilityInfo facilityInfo = transform.GetComponent<FacilityInfo>();
+            canvasManager.SetInfo(facilityInfo.obstName, facilityInfo.pointId);
+        }
     }
 }

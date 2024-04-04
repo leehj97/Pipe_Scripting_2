@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraStartingPosition : MonoBehaviour
 {
     [SerializeField]
-    private JsonConverter jsonConverter;
+    private PipeJsonConverter pipejsonConverter;
     [SerializeField]
     private List<Vector3> vertex;
 
@@ -14,10 +14,10 @@ public class CameraStartingPosition : MonoBehaviour
 
     private void Start()
     {
-        iPipeVector3ValueList = new CornerPipesVector3ListGetter(jsonConverter.XList, jsonConverter.YList, jsonConverter.ZList);
+        iPipeVector3ValueList = new CornerPipesVector3ListGetter(pipejsonConverter.XList, pipejsonConverter.YList, pipejsonConverter.ZList);
         vertex = iPipeVector3ValueList.GetVector3List();
 
-        if (jsonConverter.XList != null && jsonConverter.YList != null && jsonConverter.ZList != null) 
+        if (pipejsonConverter.XList != null && pipejsonConverter.YList != null && pipejsonConverter.ZList != null) 
             transform.position = GetClosestCameraPosition(Camera.main, vertex); // 구한 (0, -minDistance, 0) 위치에 focus 를 위치
     }
 
