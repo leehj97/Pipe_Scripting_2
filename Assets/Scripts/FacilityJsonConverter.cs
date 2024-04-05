@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FacilityJsonConverter : MonoBehaviour
 {
     private readonly Vector3 facilityOffset = new Vector3(237066, 40, 455461);
-    public const string FACILITY_ASSET_PATH = "Assets/AssetBundles/manhole";
-    public const string FACILITY_JSON_PATH = "Assets/Resources/Facility.json";
+    private readonly string FACILITY_ASSET_PATH = "Assets/AssetBundles/manhole";
+    private readonly string FACILITY_JSON_PATH = "Assets/Resources/Facility.json";
 
     [SerializeField]
     private GameObject facilityPrefab;

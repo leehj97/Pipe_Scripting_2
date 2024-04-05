@@ -5,7 +5,7 @@ using UnityEngine;
 public class PipeJsonConverter : MonoBehaviour
 {
     private readonly Vector3 pipeOffset = new Vector3(237066, 40, 455461);
-    const string PIPE_JSON_PATH = "Assets/Resources/Pipe2.json";
+    private readonly string PIPE_JSON_PATH = "Assets/Resources/Pipe2.json";
 
     [SerializeField]
     private GameObject pipePrefab;
