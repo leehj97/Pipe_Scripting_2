@@ -32,13 +32,13 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && !MouseOverUILayerObject.IsPointerOverUIObject())
             MoveCamera();
 
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1) && !MouseOverUILayerObject.IsPointerOverUIObject())
             RotateCamera();
 
-        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0 && !MouseOverUILayerObject.IsPointerOverUIObject())
             ZoomCamera();
     }
 

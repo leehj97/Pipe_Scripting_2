@@ -15,6 +15,7 @@ public class PipeJsonConverter : MonoBehaviour
     private GameObject focus;
     
     private IPipeVector3Value iPipeVector3Value;
+    private PipeNameCollection pipeNameCollection;
     private List<float> xList = new List<float>();
     private List<float> yList = new List<float>();
     private List<float> zList = new List<float>();
@@ -24,9 +25,10 @@ public class PipeJsonConverter : MonoBehaviour
     { get { return yList; } }
     public List<float> ZList
     { get { return zList; } }
-    void Start()
+    private void Start()
     {
         iPipeVector3Value = new StringToVector3Converter();
+        pipeNameCollection = pipesParent.GetComponent<PipeNameCollection>();
         DrawPipeWithData();
     }
     private void DrawPipeWithData()
@@ -54,6 +56,23 @@ public class PipeJsonConverter : MonoBehaviour
         ColorUtility.TryParseHtmlString($"{pipeData.obstColor}", out Color obstcolor);
 
         GameObject pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipesParent.transform);
+
+        switch (pipeData.obstName.Split('&')[2])
+        {
+            case "지하":
+                pipeNameCollection.DividePipesWithName(0, pipe, pipeData.obstName.Split('&')[0]);
+                break;
+            case "공동구1":
+                pipeNameCollection.DividePipesWithName(1, pipe, pipeData.obstName.Split('&')[0]);
+                break;
+            case "공동구2":
+                pipeNameCollection.DividePipesWithName(2, pipe, pipeData.obstName.Split('&')[0]);
+                break;
+            case "지상":
+                pipeNameCollection.DividePipesWithName(3, pipe, pipeData.obstName.Split('&')[0]);
+                break;
+        }
+
         pipe.transform.up = offset;
         pipe.transform.localScale = scale;
         pipe.GetComponent<MeshRenderer>().material.color = obstcolor;

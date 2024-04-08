@@ -35,15 +35,15 @@ public class CameraControllerUniRx : MonoBehaviour
         SetCameraSeeGround();
 
         this.LateUpdateAsObservable()
-            .Where(_ => Input.GetKey(KeyCode.Mouse0))
+            .Where(_ => Input.GetKey(KeyCode.Mouse0) && !MouseOverUILayerObject.IsPointerOverUIObject())
             .Subscribe(_ => MoveCamera());
 
         this.LateUpdateAsObservable()
-            .Where(_ => Input.GetKey(KeyCode.Mouse1))
+            .Where(_ => Input.GetKey(KeyCode.Mouse1) && !MouseOverUILayerObject.IsPointerOverUIObject())
             .Subscribe(_ => RotateCamera());
 
         this.LateUpdateAsObservable()
-            .Where(_ => Input.GetAxis("Mouse ScrollWheel") != 0)
+            .Where(_ => Input.GetAxis("Mouse ScrollWheel") != 0 && !MouseOverUILayerObject.IsPointerOverUIObject())
             .Subscribe(_ => ZoomCamera());
     }
 

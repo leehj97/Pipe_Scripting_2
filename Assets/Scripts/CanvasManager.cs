@@ -4,7 +4,9 @@ using UnityEngine;
 public class CanvasManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject backGround;
+    private GameObject info;
+    [SerializeField]
+    private GameObject legend;
     [SerializeField]
     private TextMeshProUGUI pipeMaterialText;
     [SerializeField]
@@ -14,12 +16,17 @@ public class CanvasManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI obstNameText;
 
+    private void Start()
+    {
+        info = transform.Find("Info").gameObject;
+        legend = transform.Find("Legend").gameObject;
+    }
     public void SetInfo(string pipeMaterial, string pipeYear, int linkId, string obstName)
     {
         pipeMaterialText.text = $"재질 : {pipeMaterial}";
         pipeYearText.text = $"연식 : {pipeYear}";
         linkIdText.text = $"관리번호 : {linkId}";
-        obstNameText.text = $"관종 : {obstName}";
+        obstNameText.text = $"관종 : {obstName.Split('&')[0]}";
     }
     public void SetInfo(string obstName, int pointId)
     {
@@ -28,10 +35,18 @@ public class CanvasManager : MonoBehaviour
     }
     public void OpenInfo()
     {
-        backGround.SetActive(true);
+        info.SetActive(true);
     }
     public void CloseInfo()
     {
-        backGround.SetActive(false);
+        info.SetActive(false);
+    }
+    public void OpenLegend()
+    {
+        legend.SetActive(true);
+    }
+    public void CloseLegend()
+    {
+        legend.SetActive(false);
     }
 }
