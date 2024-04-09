@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject info;
-    [SerializeField]
-    private GameObject legend;
+    public GameObject info;
+    public GameObject legend;
     [SerializeField]
     private TextMeshProUGUI pipeMaterialText;
     [SerializeField]
@@ -16,11 +14,6 @@ public class CanvasManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI obstNameText;
 
-    private void Start()
-    {
-        info = transform.Find("Info").gameObject;
-        legend = transform.Find("Legend").gameObject;
-    }
     public void SetInfo(string pipeMaterial, string pipeYear, int linkId, string obstName)
     {
         pipeMaterialText.text = $"재질 : {pipeMaterial}";

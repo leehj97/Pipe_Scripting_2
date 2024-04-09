@@ -29,9 +29,9 @@ public class PipeJsonConverter : MonoBehaviour
     {
         iPipeVector3Value = new StringToVector3Converter();
         pipeNameCollection = pipesParent.GetComponent<PipeNameCollection>();
-        DrawPipeWithData();
+        CreatePipeWithJson();
     }
-    private void DrawPipeWithData()
+    private void CreatePipeWithJson()
     {
         string jsonContent = File.ReadAllText(PIPE_JSON_PATH);
         PipeDataList pipeDataList = JsonUtility.FromJson<PipeDataList>(jsonContent);
@@ -57,21 +57,7 @@ public class PipeJsonConverter : MonoBehaviour
 
         GameObject pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipesParent.transform);
 
-        switch (pipeData.obstName.Split('&')[2])
-        {
-            case "지하":
-                pipeNameCollection.DividePipesWithName(0, pipe, pipeData.obstName.Split('&')[0]);
-                break;
-            case "공동구1":
-                pipeNameCollection.DividePipesWithName(1, pipe, pipeData.obstName.Split('&')[0]);
-                break;
-            case "공동구2":
-                pipeNameCollection.DividePipesWithName(2, pipe, pipeData.obstName.Split('&')[0]);
-                break;
-            case "지상":
-                pipeNameCollection.DividePipesWithName(3, pipe, pipeData.obstName.Split('&')[0]);
-                break;
-        }
+        pipeNameCollection.DividePipesWithName(pipe, pipeData.obstName.Split('&')[0]);
 
         pipe.transform.up = offset;
         pipe.transform.localScale = scale;
