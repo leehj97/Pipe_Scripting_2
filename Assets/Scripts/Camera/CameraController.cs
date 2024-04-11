@@ -2,7 +2,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class CameraControllerUniRx : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private float movingSpeed = 150f;
