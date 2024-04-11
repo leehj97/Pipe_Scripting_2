@@ -1,27 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.IO;
-using System.Reflection;
-using UnityEditor;
+using UniRx.Triggers;
+using UnityEditor.Rendering.Utilities;
+using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FacilityJsonConverter : MonoBehaviour
 {
     private readonly Vector3 facilityOffset = new Vector3(237066, 40, 455461);
-    public const string FACILITY_ASSET_PATH = "Assets/AssetBundles/manhole";
-    public const string FACILITY_JSON_PATH = "Assets/Resources/Facility.json";
+    private readonly string FACILITY_ASSET_PATH = "Assets/AssetBundles/manhole";
+    private readonly string FACILITY_JSON_PATH = "Assets/Resources/Facility.json";
 
-    [SerializeField]
-    private GameObject facilityPrefab;
     [SerializeField]
     private GameObject facilitiesParent;
     [SerializeField]
     private GameObject[] facilityAssets;
+
+    private INameDivider iNameDivider;
     private void Start()
     {
+        iNameDivider = facilitiesParent.GetComponent<FacilityNameDivider>();
         PoolingFacilityAssets(FACILITY_ASSET_PATH);
-        ConvertFacilityJsonInfo();
+        CreateFacilityWithJson();
     }
 
     public void PoolingFacilityAssets(string path)
@@ -32,38 +32,36 @@ public class FacilityJsonConverter : MonoBehaviour
         facilityAssets = bundle.LoadAllAssets<GameObject>();
     }
 
-    private void ConvertFacilityJsonInfo()
+    private void CreateFacilityWithJson()
     {
         string jsonContent = File.ReadAllText(FACILITY_JSON_PATH);
         FacilityDataList facilityDataList = JsonUtility.FromJson<FacilityDataList>(jsonContent);
 
         foreach (FacilityData facility in facilityDataList.facility)
         {
-            CreateFacilityFromJsonInfo(facility);
+            CreateFacility(facility);
         }
     }
 
-    public void CreateFacilityFromJsonInfo(FacilityData facilityData)
+    public void CreateFacility(FacilityData facilityData)
     {
         Vector3 startPosition = new Vector3(facilityData.xpos, facilityData.zpos, facilityData.ypos);
         Vector3 position = startPosition - facilityOffset;
         Vector3 scale = new Vector3(facilityData.xscale, facilityData.yscale, facilityData.zscale);
+        Vector3 lookDirection = new Vector3(facilityData.xxpos - facilityData.xpos, facilityData.zzpos - facilityData.zpos, facilityData.yypos - facilityData.ypos);
 
-        foreach (var asset in facilityAssets)
+        var facilityPrefab = Array.Find(facilityAssets, asset => asset.name == facilityData.modelFname);
+        GameObject facility = Instantiate(facilityPrefab, position, Quaternion.identity, facilitiesParent.transform);
+        iNameDivider.DivideWithName(facility, facilityData.obstName.Split('&')[0]);
+
+        facility.transform.localScale = scale;
+        facility.transform.rotation = Quaternion.LookRotation(lookDirection);
+
+        FacilityInfo facilityInfo = facility.GetComponent<FacilityInfo>();
+        if (facilityInfo != null)
         {
-            if (asset.name == facilityData.modelFname)
-            {
-                facilityPrefab = asset;
-                GameObject facility = Instantiate(facilityPrefab, position, Quaternion.identity, facilitiesParent.transform);
-                facility.transform.localScale = scale;
-
-                FacilityInfo facilityInfo = facility.GetComponent<FacilityInfo>();
-                if (facilityInfo != null)
-                {
-                    facilityInfo.obstName = facilityData.obstName;
-                    facilityInfo.pointId = facilityData.pointId;
-                }
-            }
+            facilityInfo.obstName = facilityData.obstName;
+            facilityInfo.pointId = facilityData.pointId;
         }
     }
 }

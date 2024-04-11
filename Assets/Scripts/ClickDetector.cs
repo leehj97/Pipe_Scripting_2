@@ -18,9 +18,9 @@ public class ClickDetector : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
-            ClickFacility();
+            ClickObject();
     }
-    private void ClickFacility()
+    private void ClickObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit point;

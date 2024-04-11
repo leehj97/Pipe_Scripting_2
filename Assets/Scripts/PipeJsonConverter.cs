@@ -5,7 +5,7 @@ using UnityEngine;
 public class PipeJsonConverter : MonoBehaviour
 {
     private readonly Vector3 pipeOffset = new Vector3(237066, 40, 455461);
-    const string PIPE_JSON_PATH = "Assets/Resources/Pipe2.json";
+    private readonly string PIPE_JSON_PATH = "Assets/Resources/Pipe2.json";
 
     [SerializeField]
     private GameObject pipePrefab;
@@ -15,6 +15,7 @@ public class PipeJsonConverter : MonoBehaviour
     private GameObject focus;
     
     private IPipeVector3Value iPipeVector3Value;
+    private INameDivider iNameDivider;
     private List<float> xList = new List<float>();
     private List<float> yList = new List<float>();
     private List<float> zList = new List<float>();
@@ -24,12 +25,13 @@ public class PipeJsonConverter : MonoBehaviour
     { get { return yList; } }
     public List<float> ZList
     { get { return zList; } }
-    void Start()
+    private void Start()
     {
         iPipeVector3Value = new StringToVector3Converter();
-        DrawPipeWithData();
+        iNameDivider = pipesParent.GetComponent<PipeNameDivider>();
+        CreatePipeWithJson();
     }
-    private void DrawPipeWithData()
+    private void CreatePipeWithJson()
     {
         string jsonContent = File.ReadAllText(PIPE_JSON_PATH);
         PipeDataList pipeDataList = JsonUtility.FromJson<PipeDataList>(jsonContent);
@@ -54,6 +56,9 @@ public class PipeJsonConverter : MonoBehaviour
         ColorUtility.TryParseHtmlString($"{pipeData.obstColor}", out Color obstcolor);
 
         GameObject pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipesParent.transform);
+
+        iNameDivider.DivideWithName(pipe, pipeData.obstName.Split('&')[0]);
+
         pipe.transform.up = offset;
         pipe.transform.localScale = scale;
         pipe.GetComponent<MeshRenderer>().material.color = obstcolor;

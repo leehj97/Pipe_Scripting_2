@@ -1,6 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+using Unity.VisualScripting;
 
-public class CameraController : MonoBehaviour
+public class CameraControllerUniRx : MonoBehaviour
 {
     [SerializeField]
     private float movingSpeed = 150f;
@@ -28,17 +33,18 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         SetCameraSeeGround();
-    }
 
-    private void LateUpdate()
-    {
-        if (Input.GetKey(KeyCode.Mouse0))
-            MoveCamera();
+        this.LateUpdateAsObservable()
+            .Where(_ => Input.GetKey(KeyCode.Mouse0) && !MouseOverUILayerObject.IsPointerOverUIObject())
+            .Subscribe(_ => MoveCamera());
 
-        if (Input.GetKey(KeyCode.Mouse1))
-            RotateCamera();
+        this.LateUpdateAsObservable()
+            .Where(_ => Input.GetKey(KeyCode.Mouse1) && !MouseOverUILayerObject.IsPointerOverUIObject())
+            .Subscribe(_ => RotateCamera());
 
-        ZoomCamera();
+        this.LateUpdateAsObservable()
+            .Where(_ => Input.GetAxis("Mouse ScrollWheel") != 0 && !MouseOverUILayerObject.IsPointerOverUIObject())
+            .Subscribe(_ => ZoomCamera());
     }
 
     private void MoveCamera()
@@ -60,7 +66,7 @@ public class CameraController : MonoBehaviour
         float step = zoomSpeed * Time.deltaTime;
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && scrolldirection.y > minZoom)
-        { 
+        {
             transform.position = Vector3.MoveTowards(transform.position, scrolldirection, Input.GetAxis("Mouse ScrollWheel") * step);
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && scrolldirection.y < maxZoom)
