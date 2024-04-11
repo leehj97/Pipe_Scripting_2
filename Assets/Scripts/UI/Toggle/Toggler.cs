@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UniRx;
-using UniRx.Triggers;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,14 +18,14 @@ public class Toggler : MonoBehaviour
     private void Start()
     {
         toggle.OnValueChangedAsObservable().
-            Subscribe(isOn => { Toggle(isOn); });
+            Subscribe(isOn => { ToggleObst(isOn); });
 
         toggle.OnValueChangedAsObservable().
             Where(isOn => isOn == false).
             Subscribe(isOn => { bigToggle.SetIsOnWithoutNotify(isOn); });
     }
 
-    public void Toggle(bool isOn)
+    public void ToggleObst(bool isOn)
     {
         if (obstName != null && isOn)
             obstName.SetActive(true);

@@ -15,7 +15,7 @@ public class PipeJsonConverter : MonoBehaviour
     private GameObject focus;
     
     private IPipeVector3Value iPipeVector3Value;
-    private INameDivider iNameDivider;
+    private INameClassifier iNameClassifier;
     private List<float> xList = new List<float>();
     private List<float> yList = new List<float>();
     private List<float> zList = new List<float>();
@@ -28,7 +28,7 @@ public class PipeJsonConverter : MonoBehaviour
     private void Start()
     {
         iPipeVector3Value = new StringToVector3Converter();
-        iNameDivider = pipesParent.GetComponent<PipeNameDivider>();
+        iNameClassifier = pipesParent.GetComponent<PipeNameClassifier>();
         CreatePipeWithJson();
     }
     private void CreatePipeWithJson()
@@ -57,7 +57,7 @@ public class PipeJsonConverter : MonoBehaviour
 
         GameObject pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipesParent.transform);
 
-        iNameDivider.DivideWithName(pipe, pipeData.obstName.Split('&')[0]);
+        iNameClassifier.ClassifyWithName(pipe, pipeData.obstName.Split('&')[0]);
 
         pipe.transform.up = offset;
         pipe.transform.localScale = scale;

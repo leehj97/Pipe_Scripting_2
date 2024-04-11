@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FacilityNameDivider : MonoBehaviour, INameDivider
+public class FacilityNameClassifier : MonoBehaviour, INameClassifier
 {
     private Dictionary<string, Transform> facilityParents = new();
 
-    public void DivideWithName(GameObject facility, string obstName)
+    public void ClassifyWithName(GameObject facility, string obstName)
     {
         if (facilityParents.ContainsKey(obstName))
             facility.transform.SetParent(facilityParents[obstName]);
