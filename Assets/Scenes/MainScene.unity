@@ -4059,7 +4059,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2078672121}
-  - component: {fileID: 2078672122}
   - component: {fileID: 2078672123}
   - component: {fileID: 2078672124}
   m_Layer: 0
@@ -4085,31 +4084,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2078672122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078672120}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e1c0144e7ad05f49b56280ca7081ee5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movingSpeed: 150
-  rotationSpeed: 150
-  rotationLimit: 89
-  orbitRadius: 10
-  zoomSpeed: 3000
-  zoomPoint: 500
-  minZoom: -500
-  maxZoom: 500
-  positionX: 0
-  positionZ: 0
-  rotationX: 0
-  rotationY: 0
-  orbit: {x: 0, y: 0, z: 0}
 --- !u!114 &2078672123
 MonoBehaviour:
   m_ObjectHideFlags: 0
