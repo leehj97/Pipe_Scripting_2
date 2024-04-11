@@ -1,4 +1,6 @@
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 
 public class ClickDetector : MonoBehaviour
 {
@@ -12,11 +14,13 @@ public class ClickDetector : MonoBehaviour
         canvasManager = GameObject.FindGameObjectWithTag("CanvasManager").GetComponent<CanvasManager>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
-            ClickObject();
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
+            .Subscribe(_ => ClickObject());
     }
+
     private void ClickObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

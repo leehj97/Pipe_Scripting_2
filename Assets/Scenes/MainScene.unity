@@ -1058,7 +1058,7 @@ GameObject:
   - component: {fileID: 483741480}
   - component: {fileID: 483741479}
   m_Layer: 5
-  m_Name: LegendButton
+  m_Name: LegendCloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

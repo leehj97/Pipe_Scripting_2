@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FacilityJsonConverter : MonoBehaviour
 {
-    private readonly Vector3 facilityOffset = new Vector3(237066, 40, 455461);
+    private readonly Vector3 FACILITYOFFSET = new Vector3(237066, 40, 455461);
     private readonly string FACILITY_ASSET_PATH = "Assets/AssetBundles/manhole";
     private readonly string FACILITY_JSON_PATH = "Assets/Resources/Facility.json";
 
@@ -24,6 +24,7 @@ public class FacilityJsonConverter : MonoBehaviour
     public void PoolingFacilityAssets(string path)
     {
         AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(FACILITY_ASSET_PATH));
+        // LoadFromMemoryAsync 말고 서버에서 에셋받아오는 함수도 찾기, 프로그램에서는 에셋 다 서버에서 받아와서 쓰자나....
 
         AssetBundle bundle = request.assetBundle;
         facilityAssets = bundle.LoadAllAssets<GameObject>();
@@ -43,12 +44,12 @@ public class FacilityJsonConverter : MonoBehaviour
     public void CreateFacility(FacilityData facilityData)
     {
         Vector3 startPosition = new Vector3(facilityData.xpos, facilityData.zpos, facilityData.ypos);
-        Vector3 position = startPosition - facilityOffset;
+        Vector3 position = startPosition - FACILITYOFFSET;
         Vector3 scale = new Vector3(facilityData.xscale, facilityData.yscale, facilityData.zscale);
         Vector3 lookDirection = new Vector3(facilityData.xxpos - facilityData.xpos, facilityData.zzpos - facilityData.zpos, facilityData.yypos - facilityData.ypos);
 
-        var facilityPrefab = Array.Find(facilityAssets, asset => asset.name == facilityData.modelFname);
-        GameObject facility = Instantiate(facilityPrefab, position, Quaternion.identity, facilitiesParent.transform);
+        var facilityModel = Array.Find(facilityAssets, asset => asset.name == facilityData.modelFname);
+        GameObject facility = Instantiate(facilityModel, position, Quaternion.identity, facilitiesParent.transform);
         iNameClassifier.ClassifyWithName(facility, facilityData.obstName.Split('&')[0]);
 
         facility.transform.localScale = scale;

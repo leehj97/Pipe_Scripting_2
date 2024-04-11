@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PipeJsonConverter : MonoBehaviour
 {
-    private readonly Vector3 pipeOffset = new Vector3(237066, 40, 455461);
+    private readonly Vector3 PIPEOFFSET = new Vector3(237066, 40, 455461);
     private readonly string PIPE_JSON_PATH = "Assets/Resources/Pipe2.json";
 
     [SerializeField]
@@ -50,7 +50,7 @@ public class PipeJsonConverter : MonoBehaviour
         Vector3 endPoint = iPipeVector3Value.GetVector3();
 
         Vector3 offset = endPoint - startPoint;
-        Vector3 position = startPoint + offset * 0.5f - pipeOffset;
+        Vector3 position = startPoint + offset * 0.5f - PIPEOFFSET;
         Vector3 scale = new Vector3(pipeData.pipeDia * 0.001f, offset.magnitude * 0.5f, pipeData.pipeDia * 0.001f);
 
         ColorUtility.TryParseHtmlString($"{pipeData.obstColor}", out Color obstcolor);
