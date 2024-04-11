@@ -7,9 +7,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PipeToggler : MonoBehaviour
+public class Toggler : MonoBehaviour
 {
-    public GameObject pipesName;
+    public GameObject obstName;
 
     private Toggle toggle;
     private Toggle bigToggle;
@@ -19,22 +19,22 @@ public class PipeToggler : MonoBehaviour
         toggle = gameObject.GetComponent<Toggle>();
         bigToggle = gameObject.transform.parent.GetChild(0).GetComponent<Toggle>();
     }
+
     private void Start()
     {
         toggle.OnValueChangedAsObservable().
-            Subscribe(isOn => { TogglePipe(isOn); });
+            Subscribe(isOn => { Toggle(isOn); });
 
         toggle.OnValueChangedAsObservable().
             Where(isOn => isOn == false).
             Subscribe(isOn => { bigToggle.SetIsOnWithoutNotify(isOn); });
-
-        // 여기다가 다 켜지면 공지없이 켜지게만 하면 되겠다!!
     }
-    public void TogglePipe(bool isOn)
+
+    public void Toggle(bool isOn)
     {
-        if (pipesName != null && isOn)
-            pipesName.SetActive(true);
-        else if (pipesName != null && !isOn)
-            pipesName.SetActive(false);
+        if (obstName != null && isOn)
+            obstName.SetActive(true);
+        else if (obstName != null && !isOn)
+            obstName.SetActive(false);
     }
 }

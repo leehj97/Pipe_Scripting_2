@@ -15,8 +15,11 @@ public class FacilityJsonConverter : MonoBehaviour
     private GameObject facilitiesParent;
     [SerializeField]
     private GameObject[] facilityAssets;
+
+    private INameDivider iNameDivider;
     private void Start()
     {
+        iNameDivider = facilitiesParent.GetComponent<FacilityNameDivider>();
         PoolingFacilityAssets(FACILITY_ASSET_PATH);
         CreateFacilityWithJson();
     }
@@ -49,6 +52,8 @@ public class FacilityJsonConverter : MonoBehaviour
 
         var facilityPrefab = Array.Find(facilityAssets, asset => asset.name == facilityData.modelFname);
         GameObject facility = Instantiate(facilityPrefab, position, Quaternion.identity, facilitiesParent.transform);
+        iNameDivider.DivideWithName(facility, facilityData.obstName.Split('&')[0]);
+
         facility.transform.localScale = scale;
         facility.transform.rotation = Quaternion.LookRotation(lookDirection);
 

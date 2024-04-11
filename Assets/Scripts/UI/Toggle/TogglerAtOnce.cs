@@ -5,13 +5,13 @@ using UnityEngine.UI;
 using UniRx;
 using System.Linq;
 using UniRx.Triggers;
+using UnityEngine.Purchasing.MiniJSON;
 
-public class PipeTogglerAtOnce : MonoBehaviour
+public class TogglerAtOnce : MonoBehaviour
 {
-    private Toggle bigToggle;
     [SerializeField] private List<Toggle> toggles = new();
-    // [SerializeField] private ReactiveCollection<Toggle> toggles = new();
-    // [SerializeField] private ReactiveCollection<bool> togglesIsOn = new();
+
+    private Toggle bigToggle;
 
     private void Awake()
     {
@@ -21,16 +21,27 @@ public class PipeTogglerAtOnce : MonoBehaviour
     private void Start()
     {
         toggles = gameObject.transform.parent.GetComponentsInChildren<Toggle>().ToList();
-        // toggles = gameObject.transform.parent.GetComponentsInChildren<Toggle>().ToReactiveCollection();
         toggles.Remove(bigToggle);
 
         bigToggle.OnValueChangedAsObservable().
-            Subscribe(isOn => { ToggleAllPipes(isOn); });
+            Subscribe(isOn => { ToggleAll(isOn); });
+
+        foreach (Toggle toggle in toggles)
+        {
+            toggle.OnValueChangedAsObservable().
+            Subscribe(isOn => { CheckAllToggles(); });
+        }
     }
 
-    public void ToggleAllPipes(bool isOn)
+    public void ToggleAll(bool isOn)
     {
         foreach (Toggle toggle in toggles)
             toggle.isOn = isOn;
+    }
+
+    private void CheckAllToggles()
+    {
+        if (toggles.All(toggle => toggle.isOn))
+            bigToggle.SetIsOnWithoutNotify(true);
     }
 }

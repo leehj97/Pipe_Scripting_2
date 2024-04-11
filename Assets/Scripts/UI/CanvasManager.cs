@@ -19,7 +19,7 @@ public class CanvasManager : MonoBehaviour
         pipeMaterialText.text = $"재질 : {pipeMaterial}";
         pipeYearText.text = $"연식 : {pipeYear}";
         linkIdText.text = $"관리번호 : {linkId}";
-        obstNameText.text = $"관종 : {obstName.Split('&')[0]}";
+        obstNameText.text = $"관종 : {obstName/* .Split('&')[0] */}";
     }
     public void SetInfo(string obstName, int pointId)
     {

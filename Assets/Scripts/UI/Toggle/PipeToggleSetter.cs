@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ToggleSetter : MonoBehaviour
+public class PipeToggleSetter : MonoBehaviour
 {
     public GameObject pipes;
 
@@ -13,11 +13,6 @@ public class ToggleSetter : MonoBehaviour
 
     private RectTransform togglePos;
     private Vector3 toggleOffset = new Vector3(0, -50, 0);
-
-    private void Awake()
-    {
-        toggleParent = gameObject.transform.GetChild(0).GetChild(0).gameObject;
-    }
 
     private void Start()
     {
@@ -34,9 +29,9 @@ public class ToggleSetter : MonoBehaviour
     {
         GameObject toggle = Instantiate(togglePrefab, toggleParent.transform);
         toggle.transform.name = pipes.transform.GetChild(index).name;
-        toggle.GetComponentInChildren<Text>().text = pipes.transform.GetChild(index).name;
 
-        toggle.GetComponent<PipeToggler>().pipesName = pipes.transform.Find($"{toggle.name}").gameObject;
+        toggle.GetComponentInChildren<Text>().text = pipes.transform.GetChild(index).name;
+        toggle.GetComponent<Toggler>().obstName = pipes.transform.GetChild(index).gameObject;
 
         togglePos = toggle.GetComponent<RectTransform>();
         togglePos.position += toggleOffset + new Vector3 (0, -30 * index, 0);
