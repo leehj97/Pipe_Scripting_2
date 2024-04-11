@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
-using System.Linq;
-using UniRx.Triggers;
-using UnityEngine.Purchasing.MiniJSON;
 
 public class TogglerAtOnce : MonoBehaviour
 {

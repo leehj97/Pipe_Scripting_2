@@ -1,8 +1,5 @@
 using System;
 using System.IO;
-using UniRx.Triggers;
-using UnityEditor.Rendering.Utilities;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class FacilityJsonConverter : MonoBehaviour
@@ -16,10 +13,10 @@ public class FacilityJsonConverter : MonoBehaviour
     [SerializeField]
     private GameObject[] facilityAssets;
 
-    private INameDivider iNameDivider;
+    private INameClassifier iNameClassifier;
     private void Start()
     {
-        iNameDivider = facilitiesParent.GetComponent<FacilityNameDivider>();
+        iNameClassifier = facilitiesParent.GetComponent<FacilityNameClassifier>();
         PoolingFacilityAssets(FACILITY_ASSET_PATH);
         CreateFacilityWithJson();
     }
@@ -52,7 +49,7 @@ public class FacilityJsonConverter : MonoBehaviour
 
         var facilityPrefab = Array.Find(facilityAssets, asset => asset.name == facilityData.modelFname);
         GameObject facility = Instantiate(facilityPrefab, position, Quaternion.identity, facilitiesParent.transform);
-        iNameDivider.DivideWithName(facility, facilityData.obstName.Split('&')[0]);
+        iNameClassifier.ClassifyWithName(facility, facilityData.obstName.Split('&')[0]);
 
         facility.transform.localScale = scale;
         facility.transform.rotation = Quaternion.LookRotation(lookDirection);
