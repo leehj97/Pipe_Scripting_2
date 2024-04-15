@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasManager: {fileID: 0}
-  sphereCastRadius: 0.1
+  sphereCastRadius: 0.3
 --- !u!1 &483741477
 GameObject:
   m_ObjectHideFlags: 0
