@@ -40,6 +40,12 @@ public class ClickDetector : MonoBehaviour
 
             foreach (RaycastHit obj in hitList)
             {
+                Vector3 objTopSpot = obj.transform.position + (new Vector3(0, 1, 0) * obj.transform.localScale.y);
+                Vector3 objBottomSpot = obj.transform.position + (new Vector3(0, -1, 0) * obj.transform.localScale.y);
+            }
+            /*
+            foreach (RaycastHit obj in hitList)
+            {
                 Vector3 screenPoint = Camera.main.WorldToScreenPoint(obj.point);
                 float distance = Vector2.Distance(Input.mousePosition, new Vector2(screenPoint.x, screenPoint.y));
                 if (distance < minDistance)
@@ -48,19 +54,19 @@ public class ClickDetector : MonoBehaviour
                     nearestPipe = obj.transform.gameObject;
                 }
             }
+            */
 
             foreach (RaycastHit obj in hitList)
             {
-                // map hit point into screen space - use as origin
                 Vector2 screenPoint = Camera.main.WorldToScreenPoint(obj.point);
-                // use a known direction and map into screen space as well
-                Vector2 screenDirection = Camera.main.WorldToScreenPoint(obj.point + obj.transform.forward) - (Vector3)screenPoint;
-                // adjust vector according to pipe rotation, or wherever you get the direction from
-
-                // From linked answer - get the closest point on that screen space line from the mouse point
+                Vector2 screenDirection = (Vector2)Camera.main.WorldToScreenPoint(obj.point + obj.transform.forward) - screenPoint;
                 Vector2 closestPointOnLine = FindNearestPointOnLine(screenPoint, screenDirection, Input.mousePosition);
 
-                // check the distance between mouse point and that closest point on the screen space line
+                Debug.Log(Input.mousePosition);
+                Debug.Log(screenPoint);
+                Debug.Log(screenDirection);
+                Debug.Log(closestPointOnLine);
+
                 float distance = Vector2.Distance(Input.mousePosition, closestPointOnLine);
                 if (distance < minDistance)
                 {
@@ -82,6 +88,20 @@ public class ClickDetector : MonoBehaviour
 
         float dotP = Vector2.Dot(lhs, direction);
         return origin + direction * dotP;
+    }
+
+    private Vector2 FindNearestPointOnLine2(Vector2 origin, Vector2 end, Vector2 point)
+    {
+        //Get heading
+        Vector2 heading = (end - origin);
+        float magnitudeMax = heading.magnitude;
+        heading.Normalize();
+
+        //Do projection from the point but clamp it
+        Vector2 lhs = point - origin;
+        float dotP = Vector2.Dot(lhs, heading);
+        dotP = Mathf.Clamp(dotP, 0f, magnitudeMax);
+        return origin + heading * dotP;
     }
 
     private void ClickObject()
