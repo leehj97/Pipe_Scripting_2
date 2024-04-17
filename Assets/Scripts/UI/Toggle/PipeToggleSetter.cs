@@ -4,9 +4,8 @@ using UnityEngine.UI;
 public class PipeToggleSetter : MonoBehaviour
 {
     public GameObject pipes;
-
-    [SerializeField] private GameObject togglePrefab;
-    [SerializeField] private GameObject toggleParent;
+    public GameObject togglePrefab;
+    public GameObject toggleParent;
 
     private RectTransform togglePos;
     private Vector3 toggleOffset = new Vector3(0, -50, 0);

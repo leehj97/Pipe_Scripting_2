@@ -9,6 +9,6 @@ public class ToggleModel
 
     public ToggleModel(bool isOn)
     {
-        IsOn = new ReactiveProperty<bool>(isOn);
+        IsOn.Value = isOn;
     }
 }
