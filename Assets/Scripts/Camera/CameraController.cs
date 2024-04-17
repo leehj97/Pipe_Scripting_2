@@ -3,23 +3,15 @@ using UniRx.Triggers;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
-{
-    [SerializeField]
-    private float movingSpeed = 150f;
-    [SerializeField]
-    private float rotationSpeed = 150f;
-    [SerializeField]
-    private float rotationLimit = 89f;
-    [SerializeField]
-    private float orbitRadius = 10f;
-    [SerializeField]
-    public float zoomSpeed = 3000f;
-    [SerializeField]
-    public float zoomPoint = 500f;
-    [SerializeField]
-    public float minZoom = -500f;
-    [SerializeField]
-    public float maxZoom = 500f;
+{ 
+    [SerializeField] private float movingSpeed = 150f;
+    [SerializeField] private float rotationSpeed = 150f;
+    [SerializeField] private float rotationLimit = 89f;
+    [SerializeField] private float orbitRadius = 10f;
+    [SerializeField] private float zoomSpeed = 3000f;
+    [SerializeField] private float zoomPoint = 500f;
+    [SerializeField] private float minZoom = -500f;
+    [SerializeField] private float maxZoom = 500f;
 
     private float positionX;
     private float positionZ;
