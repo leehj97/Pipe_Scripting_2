@@ -1441,7 +1441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 797279064}
   m_Layer: 5
-  m_Name: Legend
+  m_Name: Toggles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
