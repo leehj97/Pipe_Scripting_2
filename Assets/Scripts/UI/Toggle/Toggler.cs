@@ -25,7 +25,7 @@ public class Toggler : MonoBehaviour
             Subscribe(isOn => { bigToggle.SetIsOnWithoutNotify(isOn); });
     }
 
-    public void ToggleObst(bool isOn)
+    private void ToggleObst(bool isOn)
     {
         if (obstName != null && isOn)
             obstName.SetActive(true);

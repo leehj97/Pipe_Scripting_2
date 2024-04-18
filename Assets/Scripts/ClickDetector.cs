@@ -18,8 +18,22 @@ public class ClickDetector : MonoBehaviour
     {
         this.UpdateAsObservable()
             .Where(_ => Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
-            .Subscribe(_ => ClickObject2());
+            .Subscribe(_ => ClickObject3());
     }
+    // ì™œ êµ¬ ìºìŠ¤íŠ¸ë¥¼ ì“°ê²ŒëëŠ”ì§€ ì°¨ê·¼ì°¨ê·¼ ìƒê°
+    // ì™œ ì¼ì„ê¹Œ? ê·¼ì²˜ë¥¼ ëˆ„ë¥´ë©´ íƒì§€ë˜ê²Œ í•˜ë ¤ê³ 
+    // CastAllì„ ì“´ ì´ìœ : êµ¬ ìºìŠ¤íŠ¸ì— ë‹¿ì€ ëª¨ë“  ì• ë“¤ì„ ì°¾ì•„ì„œ ê±°ë¦¬ë¹„êµ í•˜ë ¤ê³ 
+    private void ClickObject3()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 1000f);
+
+        foreach (RaycastHit obj in hitList)
+        {
+            Debug.Log(obj.point);
+        }
+    }
+
     private void ClickObject2()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -31,7 +45,7 @@ public class ClickDetector : MonoBehaviour
             return;
         }
 
-        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 100f);
+        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 1000f);
 
         if (hitList.Length > 0)
         {
@@ -114,8 +128,7 @@ public class ClickDetector : MonoBehaviour
             return;
         }
 
-        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 100f); // ±¸ Ä³½ºÆ®°¡ ÆÄÀÌÇÁ¿¡ ´ê±â ¶§¹®¿¡ ´«¿¡ º¸ÀÌ´Â Á¡ ´ë½Å ¾Ö¸ÅÇÑ °÷¿¡ point°¡ »ý¼ºµÊ
-                                                                                   // ¾Ö¸ÅÇÑ Á¡Àº È­¸é»ó °¡±î¿î °÷ÀÌ¶ó´Â º¸ÀåÀÌ ¾øÀ½
+        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 1000f); 
 
         if (hitList.Length > 0)
         {
