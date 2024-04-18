@@ -152,8 +152,6 @@ public class ClickDetector : MonoBehaviour
                 Debug.Log(distance.ToString("f4"));
             }
 
-
-
             foreach (Collider obj in hitList)
             {
                 float tempDistance = Vector3.Distance(obj.transform.position, ray.origin);
