@@ -1,9 +1,6 @@
-using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
-using Unity.Burst.CompilerServices;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class ClickDetector : MonoBehaviour
 {
@@ -21,10 +18,25 @@ public class ClickDetector : MonoBehaviour
     {
         this.UpdateAsObservable()
             .Where(_ => Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
-            .Subscribe(_ => ClickObject3(0.0001f));
+            .Subscribe(_ => DetectObject(0.0001f));
+    }
+    private void LoadInfo(Transform transform)
+    {
+        canvasManager.OpenInfo();
+
+        if (transform.CompareTag("Pipe"))
+        {
+            PipeInfo pipeInfo = transform.GetComponent<PipeInfo>();
+            canvasManager.SetInfo(pipeInfo.pipeMaterial, pipeInfo.pipeYear, pipeInfo.linkId, pipeInfo.obstName);
+        }
+        else if (transform.CompareTag("Facility"))
+        {
+            FacilityInfo facilityInfo = transform.GetComponent<FacilityInfo>();
+            canvasManager.SetInfo(facilityInfo.obstName, facilityInfo.pointId);
+        }
     }
 
-    private void ClickObject3(float sphereCastRadius)
+    private void DetectObject(float sphereCastRadius)
     {
         while (true)
         {
@@ -43,6 +55,7 @@ public class ClickDetector : MonoBehaviour
             break;
         }
     }
+
     public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
@@ -196,21 +209,6 @@ public class ClickDetector : MonoBehaviour
 
             if (nearestObj != null)
                 LoadInfo(nearestObj.transform);
-        }
-    }
-    private void LoadInfo(Transform transform)
-    {
-        canvasManager.OpenInfo();
-
-        if (transform.CompareTag("Pipe"))
-        {
-            PipeInfo pipeInfo = transform.GetComponent<PipeInfo>();
-            canvasManager.SetInfo(pipeInfo.pipeMaterial, pipeInfo.pipeYear, pipeInfo.linkId, pipeInfo.obstName);
-        }
-        else if (transform.CompareTag("Facility"))
-        {
-            FacilityInfo facilityInfo = transform.GetComponent<FacilityInfo>();
-            canvasManager.SetInfo(facilityInfo.obstName, facilityInfo.pointId);
         }
     }
 }
