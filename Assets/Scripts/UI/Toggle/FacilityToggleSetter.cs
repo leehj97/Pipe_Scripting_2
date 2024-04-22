@@ -7,13 +7,9 @@ public class FacilityToggleSetter : MonoBehaviour
     public GameObject togglePrefab;
     public GameObject toggleParent;
 
-    private RectTransform togglePos;
-    private Vector3 toggleOffset = new Vector3(0, -50, 0);
-
     private void Start()
     {
         int facilitiesType = facilities.transform.childCount;
-        toggleParent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, facilitiesType * 31f);
 
         for (int i = 0; i < facilitiesType; i++)
         {
@@ -28,8 +24,5 @@ public class FacilityToggleSetter : MonoBehaviour
 
         toggle.GetComponentInChildren<Text>().text = facilities.transform.GetChild(index).name;
         toggle.GetComponent<Toggler>().obstName = facilities.transform.GetChild(index).gameObject;
-
-        togglePos = toggle.GetComponent<RectTransform>();
-        togglePos.position += toggleOffset + new Vector3(0, -30 * index, 0);
     }
 }
