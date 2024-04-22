@@ -5,10 +5,20 @@ using UnityEngine;
 
 public class ToggleModel
 {
-    public ReactiveProperty<bool> IsOn { get; private set; }
+    public static ToggleModel Instance;
 
-    public ToggleModel(bool isOn)
+    public GameObject obstName;
+
+    private void Awake()
     {
-        IsOn.Value = isOn;
+        Instance = this;
+    }
+
+    private void ToggleObst(bool isOn)
+    {
+        if (obstName != null && isOn)
+            obstName.SetActive(true);
+        else if (obstName != null && !isOn)
+            obstName.SetActive(false);
     }
 }

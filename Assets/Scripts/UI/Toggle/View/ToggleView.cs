@@ -4,45 +4,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using System.Linq;
 
 public class ToggleView : MonoBehaviour
 {
-    public GameObject obstName;
+    [SerializeField] private List<Toggle> pipeToggles;
+    [SerializeField] private List<Toggle> facilityToggles;
 
-    private Toggle toggle;
-    private Toggle bigToggle;
+    [SerializeField] private Toggle pipeEntireToggle;
+    [SerializeField] private Toggle facilityEntireToggle;
 
-    private void Awake()
+    private void SetEntireToggleWithoutNotifyAsObservable(List<Toggle> toggles, Toggle entireToggle)
     {
-        toggle = gameObject.GetComponent<Toggle>();
-        bigToggle = gameObject.transform.parent.GetChild(0).GetComponent<Toggle>();
+        foreach (Toggle toggle in toggles)
+        {
+            toggle.OnValueChangedAsObservable().Where(isOn => isOn == false).Subscribe(isOn =>
+            {
+                entireToggle.SetIsOnWithoutNotify(isOn);
+            });
+
+            toggle.OnValueChangedAsObservable().Subscribe(isOn => { CheckAllToggles(toggles, entireToggle); });
+        }
     }
 
-    public IObservable<bool> OnToggleValueChangedAsObservable()
+    private void ToggleAllAsObservable(List<Toggle> toggles, Toggle entireToggle)
     {
-        return toggle.OnValueChangedAsObservable();
+        entireToggle.OnValueChangedAsObservable().Subscribe(isOn => { ToggleAll(isOn, toggles); });
     }
 
-    public IObservable<bool> OnBigtoggleValueChangedAsObservable()
+    private void CheckAllToggles(List<Toggle> toggles, Toggle entireToggle)
     {
-        return bigToggle.OnValueChangedAsObservable();
+        if (toggles.All(toggle => toggle.isOn))
+            entireToggle.SetIsOnWithoutNotify(true);
     }
 
-    private void Start()
+    private void ToggleAll(bool isOn, List<Toggle> toggles)
     {
-        toggle.OnValueChangedAsObservable().
-            Subscribe(isOn => { ToggleObst(isOn); });
-
-        toggle.OnValueChangedAsObservable().
-            Where(isOn => isOn == false).
-            Subscribe(isOn => { bigToggle.SetIsOnWithoutNotify(isOn); });
-    }
-
-    public void ToggleObst(bool isOn)
-    {
-        if (obstName != null && isOn)
-            obstName.SetActive(true);
-        else if (obstName != null && !isOn)
-            obstName.SetActive(false);
+        foreach (Toggle toggle in toggles)
+            toggle.isOn = isOn;
     }
 }
