@@ -36,19 +36,18 @@ public class ToggleManager : MonoBehaviour
     {
         foreach (Toggle toggle in toggles)
         {
-            toggle.OnValueChangedAsObservable().
-                Where(isOn => isOn == false).
-                Subscribe(isOn => { entireToggle.SetIsOnWithoutNotify(isOn); });
+            toggle.OnValueChangedAsObservable().Where(isOn => isOn == false).Subscribe(isOn =>
+            {
+                entireToggle.SetIsOnWithoutNotify(isOn);
+            });
 
-            toggle.OnValueChangedAsObservable().
-                Subscribe(isOn => { CheckAllToggles(toggles, entireToggle); });
+            toggle.OnValueChangedAsObservable().Subscribe(isOn => { CheckAllToggles(toggles, entireToggle); });
         }
     }
 
     private void ToggleAllAsObservable(List<Toggle> toggles, Toggle entireToggle)
     {
-        entireToggle.OnValueChangedAsObservable().
-            Subscribe(isOn => { ToggleAll(isOn, toggles); });
+        entireToggle.OnValueChangedAsObservable().Subscribe(isOn => { ToggleAll(isOn, toggles); });
     }
 
     private void CheckAllToggles(List<Toggle> toggles, Toggle entireToggle)
