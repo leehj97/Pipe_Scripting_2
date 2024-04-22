@@ -528,7 +528,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.5
   far clip plane: 1500
   field of view: 60
   orthographic: 0
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasManager: {fileID: 0}
-  sphereCastRadius: 0.3
+  maxSphereCastRadius: 0.1
 --- !u!1 &483741477
 GameObject:
   m_ObjectHideFlags: 0

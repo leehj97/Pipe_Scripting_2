@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 150f;
     [SerializeField] private float rotationLimit = 89f;
     [SerializeField] private float orbitRadius = 10f;
-    [SerializeField] private float zoomSpeed = 3000f;
+    [SerializeField] private float zoomSpeed = 1000f;
     [SerializeField] private float zoomPoint = 500f;
     [SerializeField] private float minZoom = -500f;
     [SerializeField] private float maxZoom = 500f;
@@ -56,11 +56,14 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && scrolldirection.y > minZoom)
         {
-            transform.position = Vector3.MoveTowards(transform.position, scrolldirection, Input.GetAxis("Mouse ScrollWheel") * step);
+            transform.position = Vector3.MoveTowards(transform.position, scrolldirection,
+                Input.GetAxis("Mouse ScrollWheel") * step);
         }
+
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && scrolldirection.y < maxZoom)
         {
-            transform.position = Vector3.MoveTowards(transform.position, scrolldirection, Input.GetAxis("Mouse ScrollWheel") * step);
+            transform.position = Vector3.MoveTowards(transform.position, scrolldirection,
+                Input.GetAxis("Mouse ScrollWheel") * step);
         }
     }
 
@@ -70,9 +73,12 @@ public class CameraController : MonoBehaviour
         rotationX += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
         rotationY = Mathf.Clamp(rotationY -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime, -rotationLimit, rotationLimit);
 
+        //transform.rotation = Quaternion.Euler(rotationY, rotationX, 0);
+
         transform.GetChild(0).position = transform.position + orbit;
         transform.GetChild(0).LookAt(transform.position);
     }
+
     private void SetCameraSeeGround()
     {
         rotationY = rotationLimit;
