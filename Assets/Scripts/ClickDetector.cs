@@ -10,7 +10,7 @@ public class ClickDetector : MonoBehaviour
     [SerializeField]
     private CanvasManager canvasManager;
     [SerializeField]
-    private float sphereCastRadius = 0.3f;
+    private float maxSphereCastRadius = 0.01f;
 
     private void Awake()
     {
@@ -21,107 +21,36 @@ public class ClickDetector : MonoBehaviour
     {
         this.UpdateAsObservable()
             .Where(_ => Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
-            .Subscribe(_ => ClickObjectAI());
+            .Subscribe(_ => ClickObject3(0.0001f));
     }
 
-    private void ClickObjectAI()
+    private void ClickObject3(float sphereCastRadius)
     {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = Camera.main.nearClipPlane;
-
-        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-        GameObject nearestObj = null;
-        float minDistance = float.MaxValue;
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 1000f);
-
-        if (hitList.Length > 0)
+        while (true)
         {
-            foreach (RaycastHit obj in hitList)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
+            
+            if (Physics.SphereCast(ray, sphereCastRadius, out RaycastHit hit))
             {
-                Vector3 closestPoint = obj.transform.GetComponent<Collider>().ClosestPoint(worldMousePosition);
-                float distance = Vector3.Distance(worldMousePosition, closestPoint);
-
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestObj = obj.transform.gameObject;
-                }
+                LoadInfo(hit.collider.transform);
             }
-
-            if (nearestObj != null)
+            else
             {
-                LoadInfo(nearestObj.transform);
+                if (sphereCastRadius > maxSphereCastRadius) return;
+                sphereCastRadius += 0.0001f;
+                continue;
             }
+            break;
         }
     }
-
-    private void ClickObject4()
+    public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // ray.direction = (Camera.main.transform.rotation * Vector3.forward);
-        RaycastHit point;
-
-        if (Physics.Raycast(ray, out point) && point.transform.gameObject.layer != 6)
-        {
-            LoadInfo(point.transform);
-            return;
-        }
-
-        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 1000f);
-
-        if (hitList.Length > 0)
-        {
-            GameObject nearestPipe = null;
-            float minDistance = float.MaxValue;
-
-            // Debug.Log(ray.direction);
-            Debug.Log(Camera.main.WorldToScreenPoint(ray.origin));
-
-
-            foreach (RaycastHit obj in hitList)
-            {
-                Vector3 pos = obj.collider.transform.position;
-                Quaternion rot = obj.collider.transform.rotation;
-                Vector3 closestPointCollider = Physics.ClosestPoint(ray.origin, obj.collider, pos, rot);
-                
-                // Debug.Log(Camera.main.WorldToScreenPoint(closestPointCollider));
-                Debug.Log(Camera.main.WorldToScreenPoint(obj.point));
-
-                float distance = Vector2.Distance(Camera.main.WorldToScreenPoint(ray.origin),
-                    (Vector2)Camera.main.WorldToScreenPoint(obj.point));
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestPipe = obj.transform.gameObject;
-                }
-
-                Debug.Log(distance);
-            }
-
-            if (nearestPipe != null)
-                LoadInfo(nearestPipe.transform);
-        }
+        Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+        Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, z));
+        float distance;
+        xy.Raycast(ray, out distance);
+        return ray.GetPoint(distance);
     }
-
-    private void ClickObject3(float sphereCastRad)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.SphereCast(ray, sphereCastRad, out RaycastHit hit))
-        {
-            LoadInfo(hit.collider.transform);
-        }
-        else
-        {
-            if (sphereCastRad > 0.1f)
-                return;
-            ClickObject3(sphereCastRad + 0.001f);
-        }
-    }
-
 
     private void ClickObject2()
     {
@@ -134,7 +63,7 @@ public class ClickDetector : MonoBehaviour
             return;
         }
 
-        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 1000f);
+        RaycastHit[] hitList = Physics.SphereCastAll(ray, maxSphereCastRadius, 1000f);
 
         if (hitList.Length > 0)
         {
@@ -217,7 +146,7 @@ public class ClickDetector : MonoBehaviour
             return;
         }
 
-        RaycastHit[] hitList = Physics.SphereCastAll(ray, sphereCastRadius, 1000f); 
+        RaycastHit[] hitList = Physics.SphereCastAll(ray, maxSphereCastRadius, 1000f); 
 
         if (hitList.Length > 0)
         {
