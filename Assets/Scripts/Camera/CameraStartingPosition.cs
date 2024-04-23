@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class CameraStartingPosition : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class CameraStartingPosition : MonoBehaviour
     private List<Vector3> vertex;
 
     private IPipeVector3ValueList iPipeVector3ValueList;
+    [Inject]
+    public void Init(IPipeVector3ValueList _iPipeVector3ValueList)
+    {
+        iPipeVector3ValueList = _iPipeVector3ValueList;
+    }
 
     private void Start()
     {
