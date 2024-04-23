@@ -21,7 +21,7 @@ public class FacilityJsonConverter : MonoBehaviour
         CreateFacilityWithJson();
     }
 
-    public void PoolingFacilityAssets(string path)
+    private void PoolingFacilityAssets(string path)
     {
         AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(FACILITY_ASSET_PATH));
         // LoadFromMemoryAsync 말고 서버에서 에셋받아오는 함수도 찾기, 프로그램에서는 에셋 다 서버에서 받아와서 쓰자나....
@@ -41,7 +41,7 @@ public class FacilityJsonConverter : MonoBehaviour
         }
     }
 
-    public void CreateFacility(FacilityData facilityData)
+    private void CreateFacility(FacilityData facilityData)
     {
         Vector3 startPosition = new Vector3(facilityData.xpos, facilityData.zpos, facilityData.ypos);
         Vector3 position = startPosition - FACILITYOFFSET;

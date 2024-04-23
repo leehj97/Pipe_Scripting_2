@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Zenject;
 
 public class PipeJsonConverter : MonoBehaviour
 {
@@ -13,9 +14,17 @@ public class PipeJsonConverter : MonoBehaviour
     private GameObject pipesParent;
     [SerializeField]
     private GameObject focus;
-    
+
     private IPipeVector3Value iPipeVector3Value;
     private INameClassifier iNameClassifier;
+
+    [Inject]
+    public void Init(IPipeVector3Value _iPipeVector3Value)//, INameClassifier _iNameClassifier)
+    {
+        iPipeVector3Value = _iPipeVector3Value;
+        // iNameClassifier = _iNameClassifier;
+    }
+    
     private List<float> xList = new List<float>();
     private List<float> yList = new List<float>();
     private List<float> zList = new List<float>();
@@ -27,7 +36,6 @@ public class PipeJsonConverter : MonoBehaviour
     { get { return zList; } }
     private void Start()
     {
-        iPipeVector3Value = new StringToVector3Converter();
         iNameClassifier = pipesParent.GetComponent<PipeNameClassifier>();
         CreatePipeWithJson();
     }
