@@ -277,7 +277,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 22333928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a454bd8b88a01e43bc110099387e0a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e8180fe82ce13640b072e61512b5063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &123031496
@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 123031499}
   - component: {fileID: 123031498}
-  - component: {fileID: 123031497}
+  - component: {fileID: 123031500}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -298,18 +298,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &123031497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123031496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7c31f7cab872aa43b6ced9785c87bdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &123031498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 123031497}
+  - {fileID: 123031500}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -357,6 +345,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &123031500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123031496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6bc2bb69697184ba197440827e360a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &212611275
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasManager: {fileID: 0}
-  maxSphereCastRadius: 0.01
+  maxSphereCastRadius: 0.1
 --- !u!1 &483741477
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,7 +3552,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1800576050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a51be573a9f36874c9d77ca0f45fe59e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e8180fe82ce13640b072e61512b5063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1815712888

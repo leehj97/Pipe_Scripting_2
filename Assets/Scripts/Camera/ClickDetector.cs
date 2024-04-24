@@ -7,7 +7,7 @@ public class ClickDetector : MonoBehaviour
     [SerializeField]
     private CanvasManager canvasManager;
     [SerializeField]
-    private float maxSphereCastRadius = 0.01f;
+    private float maxSphereCastRadius = 0.1f;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class ClickDetector : MonoBehaviour
     {
         this.UpdateAsObservable()
             .Where(_ => Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
-            .Subscribe(_ => DetectObject(0.0001f));
+            .Subscribe(_ => DetectObject(0.001f));
     }
     private void LoadInfo(Transform transform)
     {

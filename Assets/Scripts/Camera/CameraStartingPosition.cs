@@ -13,15 +13,14 @@ public class CameraStartingPosition : MonoBehaviour
 
     private IPipeVector3ValueList iPipeVector3ValueList;
     [Inject]
-    public void Init(IPipeVector3ValueList _iPipeVector3ValueList)
+    public void Init(IPipeVector3ValueList iPipeVector3ValueList)
     {
-        iPipeVector3ValueList = _iPipeVector3ValueList;
+        this.iPipeVector3ValueList = iPipeVector3ValueList;
     }
 
     private void Start()
     {
-        iPipeVector3ValueList = new CornerPipesVector3ListGetter(pipejsonConverter.XList, pipejsonConverter.YList, pipejsonConverter.ZList);
-        vertex = iPipeVector3ValueList.GetVector3List();
+        vertex = iPipeVector3ValueList.GetVector3List(pipejsonConverter.XList, pipejsonConverter.YList, pipejsonConverter.ZList);
 
         if (pipejsonConverter.XList != null && pipejsonConverter.YList != null && pipejsonConverter.ZList != null) 
             transform.position = GetClosestCameraPosition(Camera.main, vertex); // 구한 (0, -minDistance, 0) 위치에 focus 를 위치
