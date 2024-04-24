@@ -14,10 +14,10 @@ public class PipeJsonConverter : MonoBehaviour
     private GameObject pipesParent;
     [SerializeField]
     private GameObject focus;
-
-    private IPipeVector3Value iPipeVector3Value;
+    
     private NameClassifier nameClassifier;
 
+    private IPipeVector3Value iPipeVector3Value;
     [Inject]
     public void Init(IPipeVector3Value iPipeVector3Value)
     {
@@ -33,6 +33,7 @@ public class PipeJsonConverter : MonoBehaviour
     { get { return yList; } }
     public List<float> ZList
     { get { return zList; } }
+
     private void Start()
     {
         nameClassifier = pipesParent.GetComponent<NameClassifier>();
