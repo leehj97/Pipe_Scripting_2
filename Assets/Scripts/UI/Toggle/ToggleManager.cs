@@ -8,6 +8,8 @@ using UniRx;
 
 public class ToggleManager : MonoBehaviour
 {
+    private ToggleModel toggleModel;
+
     [SerializeField] private GameObject pipeTogglesParent;
     [SerializeField] private GameObject facilityTogglesParent;
 
@@ -25,11 +27,25 @@ public class ToggleManager : MonoBehaviour
         facilityToggles = facilityTogglesParent.transform.GetComponentsInChildren<Toggle>().ToList();
         facilityToggles.Remove(facilityEntireToggle);
 
+        toggleModel = pipeToggles[0].GetComponent<ToggleModel>();
+
+        ToggleObstAsObservable(pipeToggles);
+        ToggleObstAsObservable(facilityToggles);
+
         SetEntireToggleWithoutNotifyAsObservable(pipeToggles, pipeEntireToggle);
         SetEntireToggleWithoutNotifyAsObservable(facilityToggles, facilityEntireToggle);
 
         ToggleAllAsObservable(pipeToggles, pipeEntireToggle);
         ToggleAllAsObservable(facilityToggles, facilityEntireToggle);
+    }
+
+    private void ToggleObstAsObservable(List<Toggle> toggles)
+    {
+        foreach (Toggle toggle in toggles)
+        {
+            toggle.OnValueChangedAsObservable().
+                Subscribe(isOn => { toggleModel.ToggleObst(isOn); });
+        }
     }
 
     private void SetEntireToggleWithoutNotifyAsObservable(List<Toggle> toggles, Toggle entireToggle)

@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class CornerPipesVector3ListGetter : IPipeVector3ValueList
 {
+    /*
     private List<float> xList, yList, zList;
-    public CornerPipesVector3ListGetter(List<float> xList, List<float> yList, List<float> zList)
+    public CornerPipesVector3ListGetter()
     {
         this.xList = xList;
         this.yList = yList;
         this.zList = zList;
     }
-    public List<Vector3> GetVector3List()
+    */
+    public List<Vector3> GetVector3List(List<float> xList, List<float> yList, List<float> zList)
     {
         float minX = xList.Min();
         float maxX = xList.Max();

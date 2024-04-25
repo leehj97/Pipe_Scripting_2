@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPipeVector3ValueList
 {
-    public List<Vector3> GetVector3List();
+    public List<Vector3> GetVector3List(List<float> xList, List<float> yList, List<float> zList);
 }

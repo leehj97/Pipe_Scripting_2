@@ -13,10 +13,10 @@ public class FacilityJsonConverter : MonoBehaviour
     [SerializeField]
     private GameObject[] facilityAssets;
 
-    private INameClassifier iNameClassifier;
+    private NameClassifier nameClassifier;
     private void Start()
     {
-        iNameClassifier = facilitiesParent.GetComponent<FacilityNameClassifier>();
+        nameClassifier = facilitiesParent.GetComponent<NameClassifier>();
         PoolingFacilityAssets(FACILITY_ASSET_PATH);
         CreateFacilityWithJson();
     }
@@ -50,7 +50,7 @@ public class FacilityJsonConverter : MonoBehaviour
 
         var facilityModel = Array.Find(facilityAssets, asset => asset.name == facilityData.modelFname);
         GameObject facility = Instantiate(facilityModel, position, Quaternion.identity, facilitiesParent.transform);
-        iNameClassifier.ClassifyWithName(facility, facilityData.obstName.Split('&')[0]);
+        nameClassifier.ClassifyWithName(facility, facilityData.obstName.Split('&')[0]);
 
         facility.transform.localScale = scale;
         facility.transform.rotation = Quaternion.LookRotation(lookDirection);
