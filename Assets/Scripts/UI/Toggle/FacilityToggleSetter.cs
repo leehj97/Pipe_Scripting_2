@@ -23,6 +23,6 @@ public class FacilityToggleSetter : MonoBehaviour
         toggle.transform.name = facilities.transform.GetChild(index).name;
 
         toggle.GetComponentInChildren<Text>().text = facilities.transform.GetChild(index).name;
-        toggle.GetComponent<Toggler>().obstName = facilities.transform.GetChild(index).gameObject;
+        toggle.GetComponent<ToggleModel>().obstName = facilities.transform.GetChild(index).gameObject;
     }
 }

@@ -23,6 +23,6 @@ public class PipeToggleSetter : MonoBehaviour
         toggle.transform.name = pipes.transform.GetChild(index).name;
 
         toggle.GetComponentInChildren<Text>().text = pipes.transform.GetChild(index).name;
-        toggle.GetComponent<Toggler>().obstName = pipes.transform.GetChild(index).gameObject;
+        toggle.GetComponent<ToggleModel>().obstName = pipes.transform.GetChild(index).gameObject;
     }
 }
