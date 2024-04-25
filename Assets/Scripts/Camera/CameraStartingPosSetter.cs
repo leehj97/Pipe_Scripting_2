@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class CameraStartingPosition : MonoBehaviour
+public class CameraStartingPosSetter : MonoBehaviour
 {
     [SerializeField]
     private PipeJsonConverter pipejsonConverter;
