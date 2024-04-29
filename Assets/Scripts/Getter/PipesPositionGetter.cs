@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class PipesPositionGetter : MonoBehaviour
+public class PipesPositionGetter
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private List<float> xList = new List<float>();
+    private List<float> yList = new List<float>();
+    private List<float> zList = new List<float>();
+    public List<float> XList
+    { get { return xList; } }
+    public List<float> YList
+    { get { return yList; } }
+    public List<float> ZList
+    { get { return zList; } }
 
-    // Update is called once per frame
-    void Update()
+    public void GetPipePos(float xPos, float yPos, float zPos)
     {
-        
+        XList.Add(xPos);
+        YList.Add(yPos);
+        ZList.Add(zPos);
     }
 }
