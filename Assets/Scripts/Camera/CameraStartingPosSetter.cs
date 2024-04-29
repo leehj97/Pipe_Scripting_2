@@ -4,25 +4,25 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class CameraStartingPosition : MonoBehaviour
+public class CameraStartingPosSetter : MonoBehaviour
 {
-    [SerializeField]
-    private PipeJsonConverter pipejsonConverter;
     [SerializeField]
     private List<Vector3> vertex;
 
     private IPipeVector3ValueList iPipeVector3ValueList;
+    private PipesPositionGetter pipesPositionGetter;
     [Inject]
-    public void Init(IPipeVector3ValueList iPipeVector3ValueList)
+    public void Init(IPipeVector3ValueList iPipeVector3ValueList, PipesPositionGetter pipesPositionGetter)
     {
         this.iPipeVector3ValueList = iPipeVector3ValueList;
+        this.pipesPositionGetter = pipesPositionGetter;
     }
 
     private void Start()
     {
-        vertex = iPipeVector3ValueList.GetVector3List(pipejsonConverter.XList, pipejsonConverter.YList, pipejsonConverter.ZList);
+        vertex = iPipeVector3ValueList.GetVector3List(pipesPositionGetter.XList, pipesPositionGetter.YList, pipesPositionGetter.ZList);
 
-        if (pipejsonConverter.XList != null && pipejsonConverter.YList != null && pipejsonConverter.ZList != null) 
+        if (pipesPositionGetter.XList != null && pipesPositionGetter.YList != null && pipesPositionGetter.ZList != null) 
             transform.position = GetClosestCameraPosition(Camera.main, vertex); // 구한 (0, -minDistance, 0) 위치에 focus 를 위치
     }
 

@@ -4249,8 +4249,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2078672121}
-  - component: {fileID: 2078672123}
   - component: {fileID: 2078672124}
+  - component: {fileID: 2078672125}
   m_Layer: 0
   m_Name: Focus
   m_TagString: Untagged
@@ -4274,20 +4274,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2078672123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078672120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e325accf6c5e3cf49a162dff4e19a170, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pipejsonConverter: {fileID: 226903638}
-  vertex: []
 --- !u!114 &2078672124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4308,3 +4294,17 @@ MonoBehaviour:
   zoomPoint: 500
   minZoom: -500
   maxZoom: 500
+--- !u!114 &2078672125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078672120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e325accf6c5e3cf49a162dff4e19a170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipejsonConverter: {fileID: 0}
+  vertex: []

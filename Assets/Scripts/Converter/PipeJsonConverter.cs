@@ -18,10 +18,12 @@ public class PipeJsonConverter : MonoBehaviour
     private NameClassifier nameClassifier;
 
     private IPipeVector3Value iPipeVector3Value;
+    private PipesPositionGetter pipesPositionGetter;
     [Inject]
-    public void Init(IPipeVector3Value iPipeVector3Value)
+    public void Init(IPipeVector3Value iPipeVector3Value, PipesPositionGetter pipesPositionGetter)
     {
         this.iPipeVector3Value = iPipeVector3Value;
+        this.pipesPositionGetter = pipesPositionGetter;
     }
     
     private List<float> xList = new List<float>();
@@ -71,9 +73,7 @@ public class PipeJsonConverter : MonoBehaviour
         pipe.transform.localScale = scale;
         pipe.GetComponent<MeshRenderer>().material.color = obstcolor;
 
-        XList.Add(position.x);
-        YList.Add(position.y);
-        ZList.Add(position.z);
+        pipesPositionGetter.GetPipePos(position.x, position.y, position.z);
 
         PipeInfo pipeInfo = pipe.GetComponent<PipeInfo>();
         if (pipeInfo != null)
