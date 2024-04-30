@@ -502,6 +502,8 @@ GameObject:
   - component: {fileID: 226903636}
   - component: {fileID: 226903638}
   - component: {fileID: 226903639}
+  - component: {fileID: 226903641}
+  - component: {fileID: 226903640}
   m_Layer: 0
   m_Name: JsonConverter
   m_TagString: Untagged
@@ -531,7 +533,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226903634}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f03e188460126f4ab0108d67fbda899, type: 3}
   m_Name: 
@@ -547,13 +549,43 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226903634}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41e5e1bd48e3c894885ab7d46ce5ce81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   facilitiesParent: {fileID: 1800576050}
   facilityAssets: []
+--- !u!114 &226903640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226903634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389730b1f1f262c4c94287fd78fd31fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facilitiesParent: {fileID: 1800576050}
+  facilityAssets: []
+--- !u!114 &226903641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226903634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa7813a7622e69439c9c44e6bd8bb89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipePrefab: {fileID: 3179897583056528654, guid: 346ae0fb26770c147a734194aab9c3cd,
+    type: 3}
+  pipesParent: {fileID: 22333928}
+  focus: {fileID: 2078672120}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 433719233}
   - component: {fileID: 433719234}
+  - component: {fileID: 433719235}
   m_Layer: 0
   m_Name: ClickDetector
   m_TagString: Untagged
@@ -1123,6 +1156,21 @@ MonoBehaviour:
   canvasManager: {fileID: 0}
   sphereCastRadius: 0.1
   maxSphereCastRadius: 0.1
+--- !u!114 &433719235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433719231}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb6babf7b833384eb4bd3b029bd61d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasManager: {fileID: 0}
+  sphereCastRadius: 0.1
+  maxSphereCastRadius: 0.01
 --- !u!1 &483741477
 GameObject:
   m_ObjectHideFlags: 0
@@ -4251,6 +4299,7 @@ GameObject:
   - component: {fileID: 2078672121}
   - component: {fileID: 2078672124}
   - component: {fileID: 2078672125}
+  - component: {fileID: 2078672126}
   m_Layer: 0
   m_Name: Focus
   m_TagString: Untagged
@@ -4306,5 +4355,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e325accf6c5e3cf49a162dff4e19a170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipejsonConverter: {fileID: 0}
   vertex: []
+--- !u!114 &2078672126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078672120}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd79dc2bb408b974ea12f7ab09f45f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingSpeed: 150
+  rotationSpeed: 150
+  rotationLimit: 89
+  orbitRadius: 10
+  zoomSpeed: 1000
+  zoomPoint: 500
+  minZoom: -500
+  maxZoom: 500
