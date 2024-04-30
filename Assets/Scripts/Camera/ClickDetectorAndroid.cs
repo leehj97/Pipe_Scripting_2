@@ -2,7 +2,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class ClickDetector : MonoBehaviour
+public class ClickDetectorAndroid : MonoBehaviour
 {
     [SerializeField] private CanvasManager canvasManager;
     [SerializeField] private float sphereCastRadius = 0.1f;
@@ -16,7 +16,7 @@ public class ClickDetector : MonoBehaviour
     private void Start()
     {
         this.UpdateAsObservable()
-            .Where(_ => Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
+            .Where(_ => Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Ended && !MouseOverUILayerObject.IsPointerOverUIObject())
             .Subscribe(_ => DetectObject(0.001f));
     }
     private void LoadInfo(Transform transform)
