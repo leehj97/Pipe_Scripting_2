@@ -6,7 +6,6 @@ public class FacilityJsonConverterAndroid : MonoBehaviour
 {
     private readonly Vector3 FACILITYOFFSET = new Vector3(237066, 40, 455461);
     private readonly string FACILITY_ASSET_PATH = "Assets/AssetBundles/manhole";
-    private readonly string FACILITY_JSON_PATH = "Assets/Resources/Facility.json";
 
     [SerializeField]
     private GameObject facilitiesParent;
@@ -32,8 +31,8 @@ public class FacilityJsonConverterAndroid : MonoBehaviour
 
     private void CreateFacilityWithJson()
     {
-        string jsonContent = File.ReadAllText(FACILITY_JSON_PATH);
-        FacilityDataList facilityDataList = JsonUtility.FromJson<FacilityDataList>(jsonContent);
+        var jsonContent = Resources.Load<TextAsset>("Facility");
+        FacilityDataList facilityDataList = JsonUtility.FromJson<FacilityDataList>(jsonContent.text);
 
         foreach (FacilityData facility in facilityDataList.facility)
         {
