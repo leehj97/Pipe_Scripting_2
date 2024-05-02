@@ -1,12 +1,14 @@
 using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class FacilityJsonConverterAndroid : MonoBehaviour
 {
     private readonly Vector3 FACILITYOFFSET = new Vector3(237066, 40, 455461);
-    private readonly string FACILITY_ASSET_PATH = "Assets/AssetBundles/manhole";
-    private readonly string FACILITY_JSON_PATH = "Assets/Resources/Facility.json";
+    // private string FACILITY_ASSET_PATH;
+    private readonly string FACILITY_JSON_PATH = "Facility";
 
     [SerializeField]
     private GameObject facilitiesParent;
@@ -17,23 +19,20 @@ public class FacilityJsonConverterAndroid : MonoBehaviour
     private void Start()
     {
         nameClassifier = facilitiesParent.GetComponent<NameClassifier>();
-        PoolingFacilityAssets(FACILITY_ASSET_PATH);
+        PoolingFacilityAssets();
         CreateFacilityWithJson();
     }
-
-    private void PoolingFacilityAssets(string path)
+    private void PoolingFacilityAssets()
     {
-        AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(FACILITY_ASSET_PATH));
-        // LoadFromMemoryAsync 말고 서버에서 에셋받아오는 함수도 찾기, 프로그램에서는 에셋 다 서버에서 받아와서 쓰자나....
-
-        AssetBundle bundle = request.assetBundle;
+        string fileName = "manholeandroid";
+        var bundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, fileName));
         facilityAssets = bundle.LoadAllAssets<GameObject>();
     }
 
     private void CreateFacilityWithJson()
     {
-        string jsonContent = File.ReadAllText(FACILITY_JSON_PATH);
-        FacilityDataList facilityDataList = JsonUtility.FromJson<FacilityDataList>(jsonContent);
+        var jsonContent = Resources.Load<TextAsset>(FACILITY_JSON_PATH);
+        FacilityDataList facilityDataList = JsonUtility.FromJson<FacilityDataList>(jsonContent.text);
 
         foreach (FacilityData facility in facilityDataList.facility)
         {

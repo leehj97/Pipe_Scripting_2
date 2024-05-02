@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class CameraControllerAndroid : MonoBehaviour
 { 
-    [SerializeField] private float movingSpeed = 150f;
-    [SerializeField] private float rotationSpeed = 150f;
+    [SerializeField] private float movingSpeed = 50f;
+    [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float rotationLimit = 89f;
     [SerializeField] private float orbitRadius = 10f;
-    [SerializeField] private float zoomSpeed = 1000f;
+    [SerializeField] private float zoomSpeed = 300f;
     [SerializeField] private float zoomPoint = 500f;
     [SerializeField] private float minZoom = -500f;
     [SerializeField] private float maxZoom = 500f;
 
+    private float perspectiveZoomSpeed = 0.2f;
     private float touchSpeed = 0.1f;
 
     private float positionX;
@@ -30,11 +31,12 @@ public class CameraControllerAndroid : MonoBehaviour
             .Subscribe(_ => MoveCamera());
 
         this.LateUpdateAsObservable()
-            .Where(_ => Input.touchCount == 2 && Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(1).phase == TouchPhase.Moved && !MouseOverUILayerObject.IsPointerOverUIObject())
+            .Where(_ => Input.touchCount == 3 && Input.GetTouch(0).phase == TouchPhase.Moved &&
+            Input.GetTouch(1).phase == TouchPhase.Moved && Input.GetTouch(2).phase == TouchPhase.Moved && !MouseOverUILayerObject.IsPointerOverUIObject())
             .Subscribe(_ => RotateCamera());
 
         this.LateUpdateAsObservable()
-            .Where(_ => Input.GetAxis("Mouse ScrollWheel") != 0 && !MouseOverUILayerObject.IsPointerOverUIObject())
+            .Where(_ => Input.touchCount == 2 && !MouseOverUILayerObject.IsPointerOverUIObject())
             .Subscribe(_ => ZoomCamera());
     }
 
@@ -49,24 +51,18 @@ public class CameraControllerAndroid : MonoBehaviour
 
     private void ZoomCamera()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit point;
-        Physics.Raycast(ray, out point);
-        Vector3 scrolldirection = ray.GetPoint(zoomPoint);
+        Touch touchZero = Input.GetTouch(0);
+        Touch touchOne = Input.GetTouch(1);
 
-        float step = zoomSpeed * Time.deltaTime;
+        Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+        Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && scrolldirection.y > minZoom)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, scrolldirection,
-                Input.GetAxis("Mouse ScrollWheel") * step);
-        }
+        float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+        float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && scrolldirection.y < maxZoom)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, scrolldirection,
-                Input.GetAxis("Mouse ScrollWheel") * step);
-        }
+        float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+
+        transform.position = Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), deltaMagnitudeDiff * perspectiveZoomSpeed);
     }
 
     private void RotateCamera()
@@ -85,6 +81,6 @@ public class CameraControllerAndroid : MonoBehaviour
     {
         rotationY = rotationLimit;
         rotationX += 180;
-        RotateCamera();
+        // RotateCamera();
     }
 }
