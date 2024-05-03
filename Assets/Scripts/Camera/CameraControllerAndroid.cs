@@ -26,9 +26,15 @@ public class CameraControllerAndroid : MonoBehaviour
     {
         SetCameraSeeGround();
 
+        /*
+         * this.UpdateAsObservable()
+            .Where(_ => )
+            .Subscribe(_ => EnableMove());
+        */ // 길게 누르는 조건 달성하는 스트림
+
         this.LateUpdateAsObservable()
             .Where(_ => Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved && !MouseOverUILayerObject.IsPointerOverUIObject())
-            .Subscribe(_ => MoveCamera());
+            .Subscribe(_ => MoveCamera());  // 길게 누르는 조건 달성됐을 때 조건 추가
 
         this.LateUpdateAsObservable()
             .Where(_ => Input.touchCount == 3 && Input.GetTouch(0).phase == TouchPhase.Moved &&
@@ -47,6 +53,11 @@ public class CameraControllerAndroid : MonoBehaviour
 
         Quaternion yRotation = Quaternion.Euler(0f, transform.GetChild(0).eulerAngles.y, 0f);
         transform.position += yRotation * new Vector3(positionX * -movingSpeed, 0, positionZ * -movingSpeed);
+    }
+
+    private bool EnableMove()
+    {
+
     }
 
     private void ZoomCamera()
