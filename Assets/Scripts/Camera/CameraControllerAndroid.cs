@@ -55,10 +55,12 @@ public class CameraControllerAndroid : MonoBehaviour
         transform.position += yRotation * new Vector3(positionX * -movingSpeed, 0, positionZ * -movingSpeed);
     }
 
+    /*
     private bool EnableMove()
     {
 
     }
+    */
 
     private void ZoomCamera()
     {
