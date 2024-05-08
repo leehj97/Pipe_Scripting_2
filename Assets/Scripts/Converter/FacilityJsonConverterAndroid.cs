@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class FacilityJsonConverterAndroid : MonoBehaviour
 {
     private readonly Vector3 FACILITYOFFSET = new Vector3(237066, 40, 455461);
-    // private string FACILITY_ASSET_PATH;
+    private readonly string FACILITY_ASSET_PATH = "manholeandroid";
     private readonly string FACILITY_JSON_PATH = "Facility";
 
     [SerializeField]
@@ -24,8 +24,7 @@ public class FacilityJsonConverterAndroid : MonoBehaviour
     }
     private void PoolingFacilityAssets()
     {
-        string fileName = "manholeandroid";
-        var bundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, fileName));
+        var bundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, FACILITY_ASSET_PATH));
         facilityAssets = bundle.LoadAllAssets<GameObject>();
     }
 

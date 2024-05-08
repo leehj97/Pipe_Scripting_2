@@ -533,7 +533,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226903634}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f03e188460126f4ab0108d67fbda899, type: 3}
   m_Name: 
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226903634}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41e5e1bd48e3c894885ab7d46ce5ce81, type: 3}
   m_Name: 
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226903634}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 389730b1f1f262c4c94287fd78fd31fe, type: 3}
   m_Name: 
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226903634}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efa7813a7622e69439c9c44e6bd8bb89, type: 3}
   m_Name: 
@@ -1118,7 +1118,6 @@ GameObject:
   m_Component:
   - component: {fileID: 433719233}
   - component: {fileID: 433719234}
-  - component: {fileID: 433719235}
   m_Layer: 0
   m_Name: ClickDetector
   m_TagString: Untagged
@@ -1151,21 +1150,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f20d2eb62b948a147b47a7dc2b750a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasManager: {fileID: 0}
-  sphereCastRadius: 0.1
-  maxSphereCastRadius: 0.1
---- !u!114 &433719235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433719231}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcb6babf7b833384eb4bd3b029bd61d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvasManager: {fileID: 0}
@@ -4299,7 +4283,6 @@ GameObject:
   - component: {fileID: 2078672121}
   - component: {fileID: 2078672124}
   - component: {fileID: 2078672125}
-  - component: {fileID: 2078672126}
   m_Layer: 0
   m_Name: Focus
   m_TagString: Untagged
@@ -4330,16 +4313,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078672120}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ab15c0b23c007b449d79d5e44f7ba32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movingSpeed: 150
   rotationSpeed: 150
+  zoomSpeed: 3000
   rotationLimit: 89
   orbitRadius: 10
-  zoomSpeed: 3000
   zoomPoint: 500
   minZoom: -500
   maxZoom: 500
@@ -4356,23 +4339,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vertex: []
---- !u!114 &2078672126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078672120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd79dc2bb408b974ea12f7ab09f45f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movingSpeed: 50
-  rotationSpeed: 50
-  rotationLimit: 89
-  orbitRadius: 10
-  zoomSpeed: 300
-  zoomPoint: 500
-  minZoom: -500
-  maxZoom: 500

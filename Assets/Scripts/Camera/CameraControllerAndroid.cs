@@ -6,9 +6,10 @@ public class CameraControllerAndroid : MonoBehaviour
 { 
     [SerializeField] private float movingSpeed = 50f;
     [SerializeField] private float rotationSpeed = 50f;
+    [SerializeField] private float zoomSpeed = 300f;
+
     [SerializeField] private float rotationLimit = 89f;
     [SerializeField] private float orbitRadius = 10f;
-    [SerializeField] private float zoomSpeed = 300f;
     [SerializeField] private float zoomPoint = 500f;
     [SerializeField] private float minZoom = -500f;
     [SerializeField] private float maxZoom = 500f;
