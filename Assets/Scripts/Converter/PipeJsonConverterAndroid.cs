@@ -38,20 +38,15 @@ public class PipeJsonConverterAndroid : MonoBehaviour
 
     private void Start()
     {
-        // PIPE_JSON_PATH = Path.Combine(Application.persistentDataPath, "Pipe2.json");
         nameClassifier = pipesParent.GetComponent<NameClassifier>();
         CreatePipeWithJson();
     }
     private void CreatePipeWithJson()
     {
-        // string jsonContent = File.ReadAllText(PIPE_JSON_PATH);
+#if !UNITY_ANDROID
         var jsonContent = Resources.Load<TextAsset>(PIPE_JSON_PATH);
         PipeDataList pipeDataList = JsonUtility.FromJson<PipeDataList>(jsonContent.text);
-
-        foreach (PipeData pipe in pipeDataList.pipeline)
-        {
-            CreatePipe(pipe);
-        }
+#endif
     }
     private void CreatePipe(PipeData pipeData)
     {
