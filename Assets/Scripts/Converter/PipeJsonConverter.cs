@@ -6,7 +6,12 @@ using Zenject;
 public class PipeJsonConverter : MonoBehaviour
 {
     private readonly Vector3 PIPEOFFSET = new Vector3(237066, 40, 455461);
+#if !UNITY_ANDROID
     private readonly string PIPE_JSON_PATH = "Assets/Resources/Pipe2.json";
+#endif
+#if UNITY_ANDROID
+    private readonly string PIPE_JSON_PATH = "Pipe2";
+#endif
 
     [SerializeField]
     private GameObject pipePrefab;
@@ -43,8 +48,14 @@ public class PipeJsonConverter : MonoBehaviour
     }
     private void CreatePipeWithJson()
     {
+#if !UNITY_ANDROID
         string jsonContent = File.ReadAllText(PIPE_JSON_PATH);
         PipeDataList pipeDataList = JsonUtility.FromJson<PipeDataList>(jsonContent);
+#endif
+#if UNITY_ANDROID
+        var jsonContent = Resources.Load<TextAsset>(PIPE_JSON_PATH);
+        PipeDataList pipeDataList = JsonUtility.FromJson<PipeDataList>(jsonContent.text);
+#endif
 
         foreach (PipeData pipe in pipeDataList.pipeline)
         {
