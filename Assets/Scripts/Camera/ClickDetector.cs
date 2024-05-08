@@ -15,16 +15,9 @@ public class ClickDetector : MonoBehaviour
 
     private void Start()
     {
-#if !UNITY_ANDROID
         this.UpdateAsObservable()
             .Where(_ => Input.GetMouseButtonDown(0) && !MouseOverUILayerObject.IsPointerOverUIObject())
             .Subscribe(_ => DetectObject(0.001f));
-#endif
-#if UNITY_ANDROID
-        this.UpdateAsObservable()
-            .Where(_ => Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Ended && !MouseOverUILayerObject.IsPointerOverUIObject())
-            .Subscribe(_ => DetectObject(0.001f));
-#endif
     }
     private void LoadInfo(Transform transform)
     {
