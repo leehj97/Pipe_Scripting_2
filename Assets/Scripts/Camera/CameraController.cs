@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         SetCameraSeeGround();
-
+        // mergetest
 #if !UNITY_ANDROID
         this.LateUpdateAsObservable()
             .Where(_ => Input.GetKey(KeyCode.Mouse0) && !MouseOverUILayerObject.IsPointerOverUIObject())
